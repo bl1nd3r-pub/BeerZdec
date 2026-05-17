@@ -17,7 +17,7 @@ namespace BeerZdec.ViewModels
         public WelcomeViewModel(IDialogService dialogService, INavigationService navigationService)
         {
             _dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
-            _navigationService = navigationService ?? throw new ArgumentNullException(nameof(dialogService));
+            _navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 
         }
     }

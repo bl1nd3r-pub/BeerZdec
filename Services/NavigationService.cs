@@ -28,14 +28,40 @@ namespace BeerZdec.Services
         }
         public void NavigateTo<TViewModel>(object? parameter = null) where TViewModel : class //можно наложить более точное ограничение
         {
-            // 1. Получаем ViewModel из контейнера DI
+            // 1. Уведомляем текущую ViewModel, что уходим с неё (опционально, но полезно)
+            if (_currentViewModel is INavigationAware aware)
+            {
+                aware.OnNavigatedFrom();
+            }
+
+            // 2. Получаем новую ViewModel из контейнера DI
             var vm = _serviceProvider.GetRequiredService<TViewModel>();
-            // 2. Если ViewModel поддерживает прием параметров (опционально)
+
+            // 3. Если новая ViewModel поддерживает приём параметров
             if (vm is INavigationAware navigationAware)
             {
                 navigationAware.OnNavigatedTo(parameter);
             }
-            // 3. Обновляем CurrentViewModel. ContentControl подхватит изменение.
+
+            // 4. Обновляем CurrentViewModel. ContentControl подхватит изменение.
+            CurrentViewModel = vm;
+        }
+        public void ClearAndNavigateTo<TViewModel>(object? parameter = null) where TViewModel : class
+        {
+            // Сейчас это аналог NavigateTo, но с семантикой "сбросить историю"
+            // В будущем здесь можно очистить стек навигации, если добавишь back/forward
+
+            // Для надёжности тоже вызываем OnNavigatedFrom, если нужно
+            if (_currentViewModel is INavigationAware aware)
+            {
+                aware.OnNavigatedFrom();
+            }
+
+            var vm = _serviceProvider.GetRequiredService<TViewModel>();
+            if (vm is INavigationAware navigationAware)
+            {
+                navigationAware.OnNavigatedTo(parameter);
+            }
             CurrentViewModel = vm;
         }
     }

@@ -1,5 +1,11 @@
-﻿using BeerZdec.Services;
+﻿using BeerZdec.Models;
+using BeerZdec.Repositories;
+using BeerZdec.Interfaces;
+using BeerZdec.Services;
 using BeerZdec.ViewModels;
+using BeerZdec.Views;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 using System.Data;
@@ -13,24 +19,35 @@ namespace BeerZdec
         {
             base.OnStartup(e);
 
-            // 1. Созданиек коллекции для регистрации сервисов
-            var services = new ServiceCollection(); // Великий Майковский сервис колекшн
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
 
-            // 2. Регистрация сервисов сервисы
+            var connectionString = configuration.GetConnectionString("HomeConnection");
+
+            var services = new ServiceCollection();
+
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(connectionString));
+
+            services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+
             services.AddSingleton<IDialogService, DialogService>(); // Singleton: один экземпляр на всё приложение
             services.AddSingleton<INavigationService, NavigationService>();
+
             services.AddTransient<WelcomeViewModel>(); // Transient: новый экземпляр при каждом запросе
+
+            services.AddTransient<MainWindowViewModel>();
             services.AddSingleton<MainWindow>(sp => // Singleton + явная настройка DataContext
             {
                 var window = new MainWindow();
-                window.DataContext = sp.GetRequiredService<WelcomeViewModel>();
+                window.DataContext = sp.GetRequiredService<MainWindowViewModel>();
                 return window;
             });
 
-            // 3. Контейнер (ServiceProvider)
             var serviceProvider = services.BuildServiceProvider();
 
-            // 4. Получение и отображение главного окна
             var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
         }
