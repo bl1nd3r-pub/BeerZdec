@@ -33,13 +33,17 @@ namespace BeerZdec
 
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
 
-            services.AddSingleton<IDialogService, DialogService>(); // Singleton: один экземпляр на всё приложение
+            services.AddSingleton<IDialogService, DialogService>();
             services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<IHashingService, HashingService>();
+            services.AddSingleton<IAuthService, AuthService>();
 
-            services.AddTransient<WelcomeViewModel>(); // Transient: новый экземпляр при каждом запросе
+            services.AddTransient<WelcomeViewModel>();
+            services.AddTransient<LoginViewModel>();
+            services.AddTransient<RegisterViewModel>();
 
             services.AddTransient<MainWindowViewModel>();
-            services.AddSingleton<MainWindow>(sp => // Singleton + явная настройка DataContext
+            services.AddSingleton<MainWindow>(sp =>
             {
                 var window = new MainWindow();
                 window.DataContext = sp.GetRequiredService<MainWindowViewModel>();

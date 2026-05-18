@@ -5,7 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BeerZdec.Views"
         mc:Ignorable="d">
-    <Grid>
-        
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel>
+            <TextBlock Text="BeerZdec" FontSize="36" FontWeight="Bold" 
+                       HorizontalAlignment="Center" Margin="0,0,0,30"/>
+
+            <TextBlock Text="{Binding CurrentUserName, StringFormat='Добро пожаловать, {0}!'}" 
+                       FontSize="18" Foreground="Green"
+                       HorizontalAlignment="Center" Margin="0,0,0,20"
+                       Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}"/>
+
+            <TextBlock Text="Система управления пивоварней" FontSize="16" 
+                       HorizontalAlignment="Center" Margin="0,0,0,40"/>
+
+            <!-- Кнопки для ГОСТЯ: видны, когда НЕ залогинен -->
+            <StackPanel Visibility="{Binding IsLoggedIn, Converter={StaticResource InvertedBoolToVis}}">
+                <Button Content="Войти" Command="{Binding NavigateToLoginCommand}" 
+                        Width="200" Padding="10" Margin="0,0,0,10"/>
+
+                <Button Content="Зарегистрироваться" Command="{Binding NavigateToRegisterCommand}" 
+                        Width="200" Padding="10"/>
+            </StackPanel>
+
+            <!-- Кнопка для АВТОРИЗОВАННОГО: видна, когда залогинен -->
+            <Button Content="Выйти из аккаунта" Command="{Binding LogoutCommand}" 
+                    Width="200" Padding="10"
+                    Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}"/>
+        </StackPanel>
     </Grid>
 </UserControl>
