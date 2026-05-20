@@ -53,9 +53,6 @@ namespace BeerZdec.ViewModels
 
         private async Task OnRegisterAsync()
         {
-            System.Diagnostics.Debug.WriteLine($"🔍 Login: '{Login}'");
-            System.Diagnostics.Debug.WriteLine($"🔍 Password: '{Password}' (null? {Password == null})");
-            System.Diagnostics.Debug.WriteLine($"🔍 ConfirmPassword: '{ConfirmPassword}'");
 
             // Валидация
             if (!Validation()) return;

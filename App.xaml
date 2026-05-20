@@ -20,5 +20,8 @@
         <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
             <v:RegisterView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AboutViewModel}">
+            <v:AboutView />
+        </DataTemplate>
     </Application.Resources>
 </Application>

@@ -24,7 +24,7 @@ namespace BeerZdec
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
-            var connectionString = configuration.GetConnectionString("HomeConnection");
+            var connectionString = configuration.GetConnectionString("ColledgeConnection");
 
             var services = new ServiceCollection();
 
@@ -37,7 +37,9 @@ namespace BeerZdec
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IHashingService, HashingService>();
             services.AddSingleton<IAuthService, AuthService>();
+            services.AddSingleton<IAppInfoService, AppInfoService>();
 
+            services.AddTransient<AboutViewModel>();
             services.AddTransient<WelcomeViewModel>();
             services.AddTransient<LoginViewModel>();
             services.AddTransient<RegisterViewModel>();

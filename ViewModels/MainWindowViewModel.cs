@@ -15,13 +15,16 @@ namespace BeerZdec.ViewModels
         private readonly INavigationService _navigation;
         public INavigationService NavigationService => _navigation;
         public ICommand NavigateToWelcomeCommand { get; }
-
+        public ICommand NavigateToAboutCommand { get; }
+            
         public MainWindowViewModel(INavigationService navigation)
         {
             _navigation = navigation ?? throw new ArgumentNullException(nameof(navigation));
 
             NavigateToWelcomeCommand = new RelayCommand(
                 () => _navigation.NavigateTo<WelcomeViewModel>());
+            NavigateToAboutCommand = new RelayCommand(
+                () => _navigation.NavigateTo<AboutViewModel>());
 
             // Сразу при запуске на нужную стартовую
             _navigation.NavigateTo<WelcomeViewModel>();
