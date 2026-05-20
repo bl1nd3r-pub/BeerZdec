@@ -1,0 +1,20 @@
+BeerZdec - Система управления пивоварней
+
+Версия: 1.0.0
+Разработчик: bl1nd3r
+Год: 2026
+
+Описание:
+Приложение для управления производственным циклом пивоварни - 
+от выращивания хмеля и солода до варки и продажи продукции.
+
+Технологии:
+- WPF (Windows Presentation Foundation)
+- MVVM паттерн
+- Entity Framework Core
+- SQL Server
+- BCrypt для хеширования паролей
+
+Контакты:
+GitHub: https://github.com/bl1nd3r-pub
+Boosty: https://boosty.to/bl1nd3r

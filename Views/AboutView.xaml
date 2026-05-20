@@ -5,28 +5,31 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BeerZdec.Views"
              mc:Ignorable="d">
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Background="White">
-        <StackPanel Width="500" Margin="30">
-            <TextBlock Text="О программе" FontSize="28" FontWeight="Bold" 
-                       HorizontalAlignment="Center" Margin="0,0,0,20"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                  HorizontalScrollBarVisibility="Disabled"
+                  Padding="20">
+        <Grid HorizontalAlignment="Center" Background="White">
+            <StackPanel Width="500" Margin="20">
+                <TextBlock Text="О программе" FontSize="28" FontWeight="Bold" 
+                           HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
-            <!-- Текст из файла -->
-            <TextBlock Text="{Binding AboutText}" 
-                       FontSize="12" 
-                       TextWrapping="Wrap"
-                       Margin="0,0,0,20"
-                       LineHeight="4"/>
+                <!-- Текст из файла -->
+                <TextBlock Text="{Binding AboutText}" 
+                           FontSize="12" 
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,20"
+                           LineHeight="4"/>
 
-            <!-- Разделитель -->
-            <Separator Margin="0,10"/>
+                <!-- Разделитель -->
+                <Separator Margin="0,10"/>
 
-            <!-- Копирайт -->
-            <TextBlock Text="© 2026 BeerZdec. Все права защищены." 
-                       FontSize="10" 
-                       Foreground="Gray"
-                       HorizontalAlignment="Center"
-                       Margin="0,10,0,0"/>
-
-        </StackPanel>
-    </Grid>
+                <!-- Копирайт -->
+                <TextBlock Text="© BeerZdec, 2026. Все права защищены." 
+                           FontSize="10" 
+                           Foreground="Gray"
+                           HorizontalAlignment="Center"
+                           Margin="0,10,0,0"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </UserControl>
