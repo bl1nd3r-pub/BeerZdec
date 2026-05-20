@@ -15,7 +15,7 @@ public partial class StorageMove
 
     public int? StorageMoves_MovedBy { get; set; }
 
-    public double? ElevMoves_Weight { get; set; }
+    public double? StorageMoves_Weight { get; set; }
 
     public virtual StorageCell? StorageMoves_FromStorageNavigation { get; set; }
 

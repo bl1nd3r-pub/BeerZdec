@@ -1,8 +1,24 @@
 ﻿<Application x:Class="BeerZdec.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:BeerZdec">
+             xmlns:local="clr-namespace:BeerZdec"
+             xmlns:vm="clr-namespace:BeerZdec.ViewModels"
+             xmlns:v="clr-namespace:BeerZdec.Views"
+             xmlns:conv="clr-namespace:BeerZdec.Converters">
     <Application.Resources>
-         
+        <!-- Конвертеры -->
+        <conv:BoolToVisibilityConverter x:Key="BoolToVis"/>
+        <conv:InvertedBoolToVisibilityConverter x:Key="InvertedBoolToVis"/>
+        
+        <!-- Карта навигации -->
+        <DataTemplate DataType="{x:Type vm:WelcomeViewModel}">
+            <v:WelcomeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+            <v:LoginView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
+            <v:RegisterView />
+        </DataTemplate>
     </Application.Resources>
 </Application>
