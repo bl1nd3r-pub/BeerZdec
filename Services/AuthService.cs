@@ -1,5 +1,6 @@
-﻿using BeerZdec.Models;
-using BeerZdec.Interfaces;
+﻿using BeerZdec.Interfaces;
+using BeerZdec.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,21 @@ namespace BeerZdec.Services
     public class AuthService : IAuthService
     {
         private readonly IRepository<User> _userRepository;
+        private readonly IRepository<UserRole> _userRoleRepository;
         private readonly IHashingService _hashingService;
 
         public User CurrentUser { get; private set; }
+        public string? CurrentUserRole => CurrentUser?.RoleNavigation?.RoleName;
         public bool IsAuthenticated => CurrentUser != null;
 
-        public AuthService(IRepository<User> userRepository, IHashingService hashingService)
+        public AuthService(
+            IRepository<User> userRepository,
+            IRepository<UserRole> userRoleRepository,
+            IHashingService hashingService
+            )
         {
             _userRepository = userRepository;
+            _userRoleRepository = userRoleRepository;
             _hashingService = hashingService;
         }
 
@@ -39,16 +47,20 @@ namespace BeerZdec.Services
             return LoginResult.InvalidPassword;
         }
 
-        public async Task<bool> RegisterAsync(string login, string password, string role = "User")
+        public async Task<bool> RegisterAsync(string login, string password, string roleName = "User")
         {
             var existingUser = await _userRepository.FirstOrDefaultAsync(u => u.UsLogin == login);
             if (existingUser != null) return false;
+
+            // Находим роль по имени через репозиторий
+            var role = await _userRoleRepository.FirstOrDefaultAsync(r => r.RoleName == roleName);
+            if (role == null) return false; // Роль не найдена
 
             var newUser = new User
             {
                 UsLogin = login,
                 UsPassword = _hashingService.HashPassword(password),
-                Role = role
+                UserRoleId = role.UserRoleId
             };
 
             await _userRepository.AddAsync(newUser);

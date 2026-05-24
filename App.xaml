@@ -23,5 +23,8 @@
         <DataTemplate DataType="{x:Type vm:AboutViewModel}">
             <v:AboutView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AdminViewModel}">
+            <v:AdminView />
+        </DataTemplate>
     </Application.Resources>
 </Application>

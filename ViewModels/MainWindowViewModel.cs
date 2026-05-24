@@ -16,7 +16,8 @@ namespace BeerZdec.ViewModels
         public INavigationService NavigationService => _navigation;
         public ICommand NavigateToWelcomeCommand { get; }
         public ICommand NavigateToAboutCommand { get; }
-            
+        public ICommand NavigateToAdminCommand { get; }
+
         public MainWindowViewModel(INavigationService navigation)
         {
             _navigation = navigation ?? throw new ArgumentNullException(nameof(navigation));
@@ -25,6 +26,8 @@ namespace BeerZdec.ViewModels
                 () => _navigation.NavigateTo<WelcomeViewModel>());
             NavigateToAboutCommand = new RelayCommand(
                 () => _navigation.NavigateTo<AboutViewModel>());
+            NavigateToAdminCommand = new RelayCommand(
+                () => _navigation.NavigateTo<AdminViewModel>());
 
             // Сразу при запуске на нужную стартовую
             _navigation.NavigateTo<WelcomeViewModel>();

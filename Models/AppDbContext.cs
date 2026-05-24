@@ -85,6 +85,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<UserRole> UserRoles { get; set; }
+
     public virtual DbSet<Variety> Varieties { get; set; }
 
     public virtual DbSet<WareCell> WareCells { get; set; }
@@ -538,11 +540,24 @@ public partial class AppDbContext : DbContext
 
             entity.HasIndex(e => e.UsLogin, "UQ__Users__C1F9CC7159B3AD87").IsUnique();
 
-            entity.Property(e => e.Role)
-                .HasMaxLength(20)
-                .HasDefaultValue("User");
             entity.Property(e => e.UsLogin).HasMaxLength(50);
             entity.Property(e => e.UsPassword).HasMaxLength(100);
+
+            entity.HasOne(e => e.RoleNavigation).WithMany(r => r.Users)
+                .HasForeignKey(e => e.UserRoleId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Users_UserRoles");
+        });
+
+        modelBuilder.Entity<UserRole>(entity =>
+        {
+            entity.HasKey(e => e.UserRoleId).HasName("PK_UserRoles_UserRoleId");
+
+            entity.Property(e => e.RoleName)
+                  .HasMaxLength(20)
+                  .IsRequired();
+
+            entity.HasIndex(e => e.RoleName).IsUnique();
         });
 
         modelBuilder.Entity<Variety>(entity =>

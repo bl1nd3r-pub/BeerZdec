@@ -11,5 +11,7 @@ public partial class User
 
     public string UsPassword { get; set; } = null!;
 
-    public string? Role { get; set; }
+    public int? UserRoleId { get; set; }
+
+    public virtual UserRole? RoleNavigation { get; set; }
 }
