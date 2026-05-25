@@ -40,6 +40,7 @@ namespace BeerZdec
             services.AddSingleton<IAuthService, AuthService>();
             services.AddSingleton<IAppInfoService, AppInfoService>();
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IPermissionService, PermissionService>();
 
             services.AddTransient<AboutViewModel>();
             services.AddTransient<AdminViewModel>();

@@ -9,62 +9,82 @@ namespace BeerZdec.ViewModels
     {
         private readonly INavigationService _navigation;
         private readonly IAuthService _authService;
+        private readonly IPermissionService _permissionService;
 
         public MainWindowViewModel(
             INavigationService navigation,
-            IAuthService authService)
+            IAuthService authService,
+            IPermissionService permissionService)
         {
             _navigation = navigation ?? throw new ArgumentNullException(nameof(navigation));
             _authService = authService ?? throw new ArgumentNullException(nameof(authService));
+            _permissionService = permissionService ?? throw new ArgumentNullException(nameof(permissionService));
 
-            // Подписываемся на изменения авторизации
             _authService.AuthStateChanged += OnAuthStateChanged;
 
-            // Инициализируем команды (inline, как ты просил)
-            NavigateToWelcomeCommand = new RelayCommand(
-                () => _navigation.NavigateTo<WelcomeViewModel>());
-            NavigateToAboutCommand = new RelayCommand(
-                () => _navigation.NavigateTo<AboutViewModel>());
-            NavigateToAdminCommand = new RelayCommand(
-                () => _navigation.NavigateTo<AdminViewModel>());
+            // Загружаем права при старте
+            _ = InitializePermissionsAsync();
 
-            // Сразу при запуске на нужную стартовую
+            NavigateToWelcomeCommand = new RelayCommand(() => _navigation.NavigateTo<WelcomeViewModel>());
+            NavigateToAboutCommand = new RelayCommand(() => _navigation.NavigateTo<AboutViewModel>());
+            NavigateToAdminCommand = new RelayCommand(() => _navigation.NavigateTo<AdminViewModel>());
+
             _navigation.NavigateTo<WelcomeViewModel>();
+
+            System.Diagnostics.Debug.WriteLine("🔧 MainWindowViewModel создан, запускаем инициализацию...");
+            _ = InitializePermissionsAsync();
         }
 
-        // Публичные свойства для биндинга
-        public INavigationService NavigationService => _navigation;
-        public ICommand NavigateToWelcomeCommand { get; }
-        public ICommand NavigateToAboutCommand { get; }
-        public ICommand NavigateToAdminCommand { get; }
+        // Публичные свойства для биндинга видимости кнопок
+        public bool CanSeeAdminPanel => CheckAccess("AdminPanel");
+        public bool CanSeeAgronomy => CheckAccess("AgronomyModule");
+        public bool CanSeeBrewing => CheckAccess("BrewingModule");
+        public bool CanSeeSales => CheckAccess("SalesModule");
 
-        // === Данные пользователя ===
-        public string CurrentUserName => _authService.CurrentUser?.UsLogin ?? "Гость";
-        public string CurrentUserRole => _authService.CurrentUser?.RoleNavigation?.RoleName ?? "User";
+        // Метод проверки доступа через сервис
+        private bool CheckAccess(string viewCode)
+        {
+            var roleId = _authService.CurrentUser?.UserRoleId ?? 0;
+            var result = _permissionService.HasAccess(viewCode, roleId);
 
-        // === Проверка прав доступа (простая строковая логика) ===
-        // Админ видит всё, остальные — только свои модули
-        public bool CanSeeAdminPanel => CurrentUserRole == "Admin";
-        public bool CanSeeAgronomy => CurrentUserRole is "Admin" or "Agronomist";
-        public bool CanSeeBrewing => CurrentUserRole is "Admin" or "Brewer";
-        public bool CanSeeSales => CurrentUserRole is "Admin" or "SalesManager";
+            System.Diagnostics.Debug.WriteLine($"🔍 Проверка доступа: ViewCode='{viewCode}', RoleId={roleId} → Результат: {result}");
+            return result;
+        }
 
-        // === Обработчик изменения авторизации ===
+        // Инициализация прав
+        private async Task InitializePermissionsAsync()
+        {
+            System.Diagnostics.Debug.WriteLine("🚀 Начинаем загрузку прав...");
+            await _permissionService.LoadPermissionsAsync();
+            System.Diagnostics.Debug.WriteLine("✅ Права загружены, обновляем UI...");
+            UpdateAuthProperties();
+        }
+
+        // Обработчик изменения авторизации
         private void OnAuthStateChanged(object? sender, EventArgs e)
         {
-            // Уведомляем обо всех свойствах, зависящих от авторизации
-            OnPropertyChanged(nameof(CurrentUserName));
-            OnPropertyChanged(nameof(CurrentUserRole));
+            System.Diagnostics.Debug.WriteLine("🔄 Событие AuthStateChanged сработало! Обновляем UI...");
+            UpdateAuthProperties();
+        }
+
+        // Обновление всех свойств, зависящих от авторизации
+        private void UpdateAuthProperties()
+        {
             OnPropertyChanged(nameof(CanSeeAdminPanel));
             OnPropertyChanged(nameof(CanSeeAgronomy));
             OnPropertyChanged(nameof(CanSeeBrewing));
             OnPropertyChanged(nameof(CanSeeSales));
         }
 
-        // === Очистка ресурсов ===
         public void Dispose()
         {
             _authService.AuthStateChanged -= OnAuthStateChanged;
         }
+
+        // Команды
+        public INavigationService NavigationService => _navigation;
+        public ICommand NavigateToWelcomeCommand { get; }
+        public ICommand NavigateToAboutCommand { get; }
+        public ICommand NavigateToAdminCommand { get; }
     }
 }

@@ -13,5 +13,7 @@ namespace BeerZdec.Models
 
         // Навигация
         public virtual ICollection<User> Users { get; set; } = new List<User>();
+
+        public virtual ICollection<RoleViewAccess> RoleViewAccesses { get; set; } = new List<RoleViewAccess>();
     }
 }
