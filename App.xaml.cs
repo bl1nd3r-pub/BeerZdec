@@ -47,6 +47,9 @@ namespace BeerZdec
             services.AddTransient<WelcomeViewModel>();
             services.AddTransient<LoginViewModel>();
             services.AddTransient<RegisterViewModel>();
+            services.AddTransient<AgronomyViewModel>();
+            services.AddTransient<SoilViewModel>();
+            services.AddTransient<SoilTextureViewModel>();
 
             services.AddTransient<MainWindowViewModel>();
             services.AddSingleton<MainWindow>(sp =>

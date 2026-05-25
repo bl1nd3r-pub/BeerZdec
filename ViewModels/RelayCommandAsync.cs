@@ -9,8 +9,8 @@ namespace BeerZdec.ViewModels
     {
         private readonly Func<Task> _execute = execute ?? throw new ArgumentNullException(nameof(execute));
         private readonly Func<bool>? _canExecute = canExecute;
-
         private bool _isExecuting;
+
         public bool CanExecute(object? parameter)
             => !_isExecuting && (_canExecute?.Invoke() ?? true);
 
@@ -35,6 +35,10 @@ namespace BeerZdec.ViewModels
             add => CommandManager.RequerySuggested += value;
             remove => CommandManager.RequerySuggested -= value;
         }
+        public void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
+        }
     }
 
     // Async-команда с параметром
@@ -42,8 +46,8 @@ namespace BeerZdec.ViewModels
     {
         private readonly Func<T?, Task> _execute = execute ?? throw new ArgumentNullException(nameof(execute));
         private readonly Predicate<T?>? _canExecute = canExecute;
-
         private bool _isExecuting;
+
         public bool CanExecute(object? parameter)
             => !_isExecuting && (_canExecute?.Invoke((T?)parameter) ?? true);
 
@@ -67,6 +71,10 @@ namespace BeerZdec.ViewModels
         {
             add => CommandManager.RequerySuggested += value;
             remove => CommandManager.RequerySuggested -= value;
+        }
+        public void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
         }
     }
 }

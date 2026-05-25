@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="BeerZdec.Views.AgronomyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BeerZdec.Views"
+             mc:Ignorable="d">
+    <TabControl TabStripPlacement="Left" Margin="0,0,0,10">
+        <TabItem Header="Классы текстур" Padding="10,5">
+            <ContentControl Content="{Binding TextureContext}" />
+        </TabItem>
+        <TabItem Header="Типы почв" Padding="10,5">
+            <ContentControl Content="{Binding SoilContext}" />
+        </TabItem>
+        <TabItem Header="Зерно и Сорта" Padding="10,5" IsEnabled="False">
+            <TextBlock Text="В разработке..." HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </TabItem>
+        <TabItem Header="Орошение" Padding="10,5" IsEnabled="False">
+            <TextBlock Text="В разработке..." HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </TabItem>
+    </TabControl>
+</UserControl>

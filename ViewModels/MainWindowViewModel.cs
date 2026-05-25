@@ -28,10 +28,10 @@ namespace BeerZdec.ViewModels
             NavigateToWelcomeCommand = new RelayCommand(() => _navigation.NavigateTo<WelcomeViewModel>());
             NavigateToAboutCommand = new RelayCommand(() => _navigation.NavigateTo<AboutViewModel>());
             NavigateToAdminCommand = new RelayCommand(() => _navigation.NavigateTo<AdminViewModel>());
+            NavigateToAgronomyCommand = new RelayCommand(() => _navigation.NavigateTo<AgronomyViewModel>());
 
             _navigation.NavigateTo<WelcomeViewModel>();
 
-            System.Diagnostics.Debug.WriteLine("🔧 MainWindowViewModel создан, запускаем инициализацию...");
             _ = InitializePermissionsAsync();
         }
 
@@ -46,24 +46,19 @@ namespace BeerZdec.ViewModels
         {
             var roleId = _authService.CurrentUser?.UserRoleId ?? 0;
             var result = _permissionService.HasAccess(viewCode, roleId);
-
-            System.Diagnostics.Debug.WriteLine($"🔍 Проверка доступа: ViewCode='{viewCode}', RoleId={roleId} → Результат: {result}");
             return result;
         }
 
         // Инициализация прав
         private async Task InitializePermissionsAsync()
         {
-            System.Diagnostics.Debug.WriteLine("🚀 Начинаем загрузку прав...");
             await _permissionService.LoadPermissionsAsync();
-            System.Diagnostics.Debug.WriteLine("✅ Права загружены, обновляем UI...");
             UpdateAuthProperties();
         }
 
         // Обработчик изменения авторизации
         private void OnAuthStateChanged(object? sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("🔄 Событие AuthStateChanged сработало! Обновляем UI...");
             UpdateAuthProperties();
         }
 
@@ -86,5 +81,6 @@ namespace BeerZdec.ViewModels
         public ICommand NavigateToWelcomeCommand { get; }
         public ICommand NavigateToAboutCommand { get; }
         public ICommand NavigateToAdminCommand { get; }
+        public ICommand NavigateToAgronomyCommand { get; }
     }
 }

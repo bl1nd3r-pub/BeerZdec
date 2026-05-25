@@ -26,5 +26,14 @@
         <DataTemplate DataType="{x:Type vm:AdminViewModel}">
             <v:AdminView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AgronomyViewModel}">
+            <v:AgronomyView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SoilViewModel}">
+            <v:SoilView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SoilTextureViewModel}">
+            <v:SoilTextureView />
+        </DataTemplate>
     </Application.Resources>
 </Application>
