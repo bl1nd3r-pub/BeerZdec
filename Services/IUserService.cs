@@ -16,7 +16,7 @@ namespace BeerZdec.Services
         Task<IEnumerable<UserRole>> GetAllRolesAsync();
 
         // Обновить данные пользователя
-        Task<bool> UpdateUserAsync(int userId, string newLogin, string? newPassword, int newUserRoleId);
+        Task<bool> UpdateUserAsync(int userId, string newLogin, int newUserRoleId);
 
         Task<bool> DeleteUserAsync(int userId);
     }

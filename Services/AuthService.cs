@@ -19,6 +19,8 @@ namespace BeerZdec.Services
         public string? CurrentUserRole => CurrentUser?.RoleNavigation?.RoleName;
         public bool IsAuthenticated => CurrentUser != null;
 
+        public event EventHandler? AuthStateChanged;
+
         public AuthService(
             IRepository<User> userRepository,
             IRepository<UserRole> userRoleRepository,
@@ -32,7 +34,9 @@ namespace BeerZdec.Services
 
         public async Task<LoginResult> LoginAsync(string login, string password)
         {
-            var user = await _userRepository.FirstOrDefaultAsync(u => u.UsLogin == login);
+            var user = await _userRepository.Query()
+                .Include(u => u.RoleNavigation)
+                .FirstOrDefaultAsync(u => u.UsLogin == login);
 
             if (user == null) return LoginResult.UserNotFound;
 
@@ -41,6 +45,7 @@ namespace BeerZdec.Services
             if (isValid)
             {
                 CurrentUser = user;
+                AuthStateChanged?.Invoke(this, EventArgs.Empty);
                 return LoginResult.Success;
             }
 
@@ -70,6 +75,7 @@ namespace BeerZdec.Services
         public void Logout()
         {
             CurrentUser = null;
+            AuthStateChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

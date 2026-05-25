@@ -37,26 +37,15 @@ namespace BeerZdec.Services
             return await _userRoleRepository.GetAllAsync();
         }
 
-        public async Task<bool> UpdateUserAsync(int userId, string newLogin, string? newPassword, int newUserRoleId)
+        public async Task<bool> UpdateUserAsync(int userId, string newLogin, int newUserRoleId)
         {
-            // 1. Находим пользователя
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null) return false;
 
-            // 2. Обновляем простые поля
             user.UsLogin = newLogin;
-            user.UserRoleId = newUserRoleId; // Привязываем к справочнику ролей
+            user.UserRoleId = newUserRoleId;
 
-            // 3. Обновляем пароль ТОЛЬКО если админ ввел что-то новое
-            if (!string.IsNullOrWhiteSpace(newPassword))
-            {
-                user.UsPassword = _hashingService.HashPassword(newPassword);
-            }
-
-            // 4. Сохраняем изменения
-            // Твой DbRepository.Update обычно вызывает SaveChanges
             _userRepository.Update(user);
-
             return true;
         }
 

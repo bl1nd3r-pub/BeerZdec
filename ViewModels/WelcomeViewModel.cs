@@ -17,11 +17,12 @@ namespace BeerZdec.ViewModels
 
         public bool IsLoggedIn => _authService.IsAuthenticated;
 
+        public string CurrentUserName => _authService.CurrentUser?.UsLogin ?? "Гость";
+
         public ICommand NavigateToLoginCommand { get; }
         public ICommand NavigateToRegisterCommand { get; }
         public ICommand LogoutCommand { get; }
 
-        public string CurrentUserName => _authService.CurrentUser?.UsLogin ?? "Гость";
 
         public WelcomeViewModel(IAuthService authService, IDialogService dialogService, INavigationService navigationService)
         {
@@ -34,15 +35,9 @@ namespace BeerZdec.ViewModels
             LogoutCommand = new RelayCommand(Logout);
         }
 
-        private void NavigateToLogin()
-        {
-            _navigationService.NavigateTo<LoginViewModel>();
-        }
+        private void NavigateToLogin() => _navigationService.NavigateTo<LoginViewModel>();
 
-        private void NavigateToRegister()
-        {
-            _navigationService.NavigateTo<RegisterViewModel>();
-        }
+        private void NavigateToRegister() => _navigationService.NavigateTo<RegisterViewModel>();
 
         private void Logout()
         {

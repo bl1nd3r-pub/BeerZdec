@@ -2,7 +2,6 @@
 using BeerZdec.Models;
 using BeerZdec.Services;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -11,12 +10,12 @@ namespace BeerZdec.ViewModels
     public class AdminViewModel : ObservableObject
     {
         private readonly IUserService _userService;
+        private readonly IAuthService _authService;
 
-        public bool HasSelectedUser => SelectedUser != null;
-
-        public AdminViewModel(IUserService userService)
+        public AdminViewModel(IUserService userService, IAuthService authService)
         {
             _userService = userService;
+            _authService = authService;
 
             Users = new ObservableCollection<User>();
             Roles = new ObservableCollection<UserRole>();
@@ -40,30 +39,32 @@ namespace BeerZdec.ViewModels
             set
             {
                 Set(ref _selectedUser, value);
-                OnPropertyChanged(nameof(HasSelectedUser)); // ← Важно!
+                OnPropertyChanged(nameof(HasSelectedUser));
+                OnPropertyChanged(nameof(CanSave));
+                OnPropertyChanged(nameof(HintMessage));
 
                 if (value != null)
                 {
                     EditLogin = value.UsLogin;
-                    EditPassword = string.Empty;
                     EditRoleId = value.UserRoleId;
                 }
             }
         }
 
-        // Поля формы редактирования
+        // ID текущего залогиненного пользователя
+        private int CurrentUserId => _authService.CurrentUser?.Id ?? 0;
+
+        // Свойства для UI
+        public bool HasSelectedUser => SelectedUser != null;
+        public bool CanSave => SelectedUser != null && SelectedUser.Id != CurrentUserId;
+        public string HintMessage => CanSave ? "" : "Нельзя изменять данные текущего пользователя";
+
+        // Поля формы редактирования (ТОЛЬКО логин и роль)
         private string _editLogin = string.Empty;
         public string EditLogin
         {
             get => _editLogin;
             set => Set(ref _editLogin, value);
-        }
-
-        private string _editPassword = string.Empty;
-        public string EditPassword
-        {
-            get => _editPassword;
-            set => Set(ref _editPassword, value);
         }
 
         private int? _editRoleId;
@@ -96,33 +97,37 @@ namespace BeerZdec.ViewModels
             {
                 Roles.Add(role);
             }
+
+            // Обновляем свойства для UI
+            OnPropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(HintMessage));
         }
 
         // Проверка возможности сохранения
         private bool CanSaveUser()
         {
             return SelectedUser != null &&
+                   SelectedUser.Id != CurrentUserId &&
                    !string.IsNullOrWhiteSpace(EditLogin) &&
                    EditRoleId.HasValue;
         }
 
-        // Сохранение пользователя
+        // Сохранение пользователя (БЕЗ ПАРОЛЯ!)
         private async Task SaveUser()
         {
-            if (SelectedUser == null || !EditRoleId.HasValue) return;
+            if (SelectedUser == null || !EditRoleId.HasValue || !CanSaveUser())
+                return;
 
             bool success = await _userService.UpdateUserAsync(
                 SelectedUser.Id,
                 EditLogin,
-                string.IsNullOrWhiteSpace(EditPassword) ? null : EditPassword,
                 EditRoleId.Value
             );
 
             if (success)
             {
-                // Перезагружаем данные
                 await LoadData();
-                SelectedUser = null; // Снимаем выделение
+                CancelEdit();
             }
         }
 
@@ -131,7 +136,6 @@ namespace BeerZdec.ViewModels
         {
             SelectedUser = null;
             EditLogin = string.Empty;
-            EditPassword = string.Empty;
             EditRoleId = null;
         }
     }

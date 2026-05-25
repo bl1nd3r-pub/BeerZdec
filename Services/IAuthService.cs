@@ -12,6 +12,9 @@ namespace BeerZdec.Services
         User CurrentUser { get; }
         bool IsAuthenticated { get; }
 
+        // Событие, которое уведомляет всё приложение об изменении состояния авторизации
+        event EventHandler? AuthStateChanged;
+
         Task<LoginResult> LoginAsync(string login, string password);
         Task<bool> RegisterAsync(string login, string password, string role = "User");
         void Logout();

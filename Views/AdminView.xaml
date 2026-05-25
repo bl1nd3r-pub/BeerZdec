@@ -43,23 +43,23 @@
                 <TextBox Text="{Binding EditLogin, UpdateSourceTrigger=PropertyChanged}" 
                          Margin="0,0,0,15" Padding="5"/>
 
-                <TextBlock Text="Новый пароль:" Margin="0,0,0,5"/>
-                <TextBox Text="{Binding EditPassword, UpdateSourceTrigger=PropertyChanged}" 
-                         Margin="0,0,0,15" Padding="5"/>
-                <TextBlock Text="Оставьте пустым, чтобы не менять" 
-                           FontSize="10" Foreground="Gray" Margin="0,-10,0,10"/>
-
                 <TextBlock Text="Роль:" Margin="0,0,0,5"/>
                 <ComboBox ItemsSource="{Binding Roles}" 
-                          SelectedValue="{Binding EditRoleId}"
-                          SelectedValuePath="UserRoleId"
-                          DisplayMemberPath="RoleName"
-                          Margin="0,0,0,20" Padding="5"/>
+                    SelectedValue="{Binding EditRoleId}"
+                    SelectedValuePath="UserRoleId"
+                    DisplayMemberPath="RoleName"
+                    Margin="0,0,0,20"/>
 
-                <Button Content="💾 Сохранить" 
-                        Command="{Binding SaveUserCommand}"
-                        Padding="10,5" Margin="0,0,0,10"
-                        Background="#4CAF50" Foreground="White"/>
+                <Button Content="Сохранить" 
+                    Command="{Binding SaveUserCommand}" 
+                    IsEnabled="{Binding CanSave}"
+                    Padding="10,5" 
+                    Background="LightGreen"/>
+
+                <TextBlock Text="{Binding HintMessage}" 
+                    Foreground="Red" 
+                    Margin="0,10,0,0" 
+                    TextWrapping="Wrap"/>
 
                 <Button Content="❌ Отмена" 
                         Command="{Binding CancelEditCommand}"
