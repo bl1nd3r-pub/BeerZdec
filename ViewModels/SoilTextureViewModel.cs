@@ -38,7 +38,6 @@ namespace BeerZdec.ViewModels
             {
                 await LoadData();
             }), System.Windows.Threading.DispatcherPriority.Background);
-            _soilRepo = soilRepo;
         }
 
         private ObservableCollection<SoilTextureClass> _textureClasses;
