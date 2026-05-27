@@ -34,10 +34,7 @@ namespace BeerZdec.ViewModels
             DeleteCommand = new RelayCommandAsync(DeleteData, CanDelete);
             CancelCommand = new RelayCommand(CancelEdit);
 
-            Dispatcher.CurrentDispatcher.BeginInvoke(new Action(async () =>
-            {
-                await LoadData();
-            }), System.Windows.Threading.DispatcherPriority.Background);
+            _ = LoadData();
         }
 
         private ObservableCollection<SoilTextureClass> _textureClasses;
@@ -98,16 +95,10 @@ namespace BeerZdec.ViewModels
 
         private async Task LoadData()
         {
-            Debug.WriteLine("🔍 SoilTextureViewModel.LoadData: Начинаем загрузку...");
 
-            var textures = await _repo.Query().ToListAsync();
-
-            Debug.WriteLine($"📊 Загружено текстур: {textures.Count}");
-
-            // Создаем НОВУЮ коллекцию и заменяем старую — это гарантированно обновит UI
-            TextureClasses = new ObservableCollection<SoilTextureClass>(textures);
-
-            Debug.WriteLine("✅ LoadData завершен");
+            var textures = await _repo.Query().AsNoTracking().ToListAsync();
+            TextureClasses.Clear();
+            foreach (var t in textures) TextureClasses.Add(t);
         }
 
         private async Task AddNew()

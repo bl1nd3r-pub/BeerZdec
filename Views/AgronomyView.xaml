@@ -4,14 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BeerZdec.Views"
+             Loaded="UserControl_Loaded"
              mc:Ignorable="d">
-    <TabControl TabStripPlacement="Left" Margin="0,0,0,10">
+    <TabControl TabStripPlacement="Left" Margin="0,0,0,10" SelectedIndex="0">
+        <!-- Вкладка Классы текстур -->
         <TabItem Header="Классы текстур" Padding="10,5">
             <ContentControl Content="{Binding TextureContext}" />
         </TabItem>
+
+        <!-- Вкладка Типы почв -->
         <TabItem Header="Типы почв" Padding="10,5">
             <ContentControl Content="{Binding SoilContext}" />
         </TabItem>
+
         <TabItem Header="Зерно и Сорта" Padding="10,5" IsEnabled="False">
             <TextBlock Text="В разработке..." HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </TabItem>

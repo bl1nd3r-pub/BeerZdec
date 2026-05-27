@@ -24,7 +24,7 @@ namespace BeerZdec
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
-            var connectionString = configuration.GetConnectionString("HomeConnection");
+            var connectionString = configuration.GetConnectionString("ColledgeConnection");
 
             var services = new ServiceCollection();
 

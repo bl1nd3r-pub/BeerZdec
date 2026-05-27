@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace BeerZdec.ViewModels
 {
@@ -107,13 +108,12 @@ namespace BeerZdec.ViewModels
 
         private async Task LoadData()
         {
-            // 1. Загружаем текстуры (для выпадающего списка)
-            var textures = await _textureRepo.Query().ToListAsync();
+
+            var textures = await _textureRepo.Query().AsNoTracking().ToListAsync();
             TextureClasses.Clear();
             foreach (var t in textures) TextureClasses.Add(t);
 
-            // 2. Загружаем типы почв
-            var soils = await _soilRepo.Query().ToListAsync();
+            var soils = await _soilRepo.Query().AsNoTracking().ToListAsync();
             SoilTypes.Clear();
             foreach (var s in soils) SoilTypes.Add(s);
         }

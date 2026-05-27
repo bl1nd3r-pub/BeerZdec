@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
+using BeerZdec.ViewModels;
 
 namespace BeerZdec.Views
 {
-    /// <summary>
-    /// Логика взаимодействия для AgronomyView.xaml
-    /// </summary>
     public partial class AgronomyView : UserControl
     {
+        private bool _isInitialized = false;
+
         public AgronomyView()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (_isInitialized) return;
+
+            if (DataContext is AgronomyViewModel vm)
+            {
+                // Загружаем данные для первой вкладки (по умолчанию активной)
+                vm.TextureContext.LoadCommand.Execute(null);
+                vm.SoilContext.LoadCommand.Execute(null);
+                _isInitialized = true;
+            }
         }
     }
 }
