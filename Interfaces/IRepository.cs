@@ -15,6 +15,7 @@ namespace BeerZdec.Interfaces
         Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate);
         Task AddAsync(T entity);
         Task AddRangeAsync(IEnumerable<T> entities);
+        Task SaveChangesAsync();
         void Update(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);

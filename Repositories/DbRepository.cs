@@ -52,11 +52,33 @@ namespace BeerZdec.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public virtual async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
         public virtual void Update(T entity)
         {
-            _dbSet.Update(entity);
-            _context.SaveChanges();
+            // Используем метаданные EF Core для поиска первичного ключа
+            var key = _context.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties[0];
+            var keyValue = key.PropertyInfo.GetValue(entity);
+
+            // Ищем объект с таким же ключом в локальном кэше контекста
+            var existing = _dbSet.Find(keyValue);
+
+            if (existing != null)
+            {
+                // Если нашли, обновляем его значения из переданного объекта
+                _context.Entry(existing).CurrentValues.SetValues(entity);
+            }
+            else
+            {
+                // Если нет, прикрепляем как измененный
+                _dbSet.Attach(entity);
+                _context.Entry(entity).State = EntityState.Modified;
+            }
         }
+
 
         public virtual void Remove(T entity)
         {

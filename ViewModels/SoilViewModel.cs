@@ -2,6 +2,7 @@
 using BeerZdec.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -24,13 +25,10 @@ namespace BeerZdec.ViewModels
 
             LoadCommand = new RelayCommandAsync(LoadData);
 
-            // Используем Async для Add, чтобы сразу сохранять в БД
             AddCommand = new RelayCommandAsync(AddNew, CanAdd);
             SaveCommand = new RelayCommandAsync(SaveData, CanSave);
             DeleteCommand = new RelayCommandAsync(DeleteData, CanDelete);
             CancelCommand = new RelayCommand(CancelEdit);
-
-            _ = LoadData();
         }
 
         public ObservableCollection<SoilType> SoilTypes { get; }
@@ -109,13 +107,27 @@ namespace BeerZdec.ViewModels
         private async Task LoadData()
         {
 
-            var textures = await _textureRepo.Query().AsNoTracking().ToListAsync();
-            TextureClasses.Clear();
-            foreach (var t in textures) TextureClasses.Add(t);
+            try
+            {
+                // 1. Загружаем текстуры (для выпадающего списка)
+                var textures = await _textureRepo.Query().AsNoTracking().ToListAsync();
+                TextureClasses.Clear();
+                foreach (var t in textures) TextureClasses.Add(t);
 
-            var soils = await _soilRepo.Query().AsNoTracking().ToListAsync();
-            SoilTypes.Clear();
-            foreach (var s in soils) SoilTypes.Add(s);
+                // 2. Загружаем типы почв
+                var soils = await _soilRepo.Query()
+                    .Include(s => s.SoilType_TextureClassNavigation)
+                    //.AsNoTracking()
+                    .ToListAsync();
+                SoilTypes.Clear();
+                foreach (var s in soils) SoilTypes.Add(s);
+            }
+            catch (InvalidOperationException ex) when (ex.Message.Contains("A second operation was started"))
+            {
+                Debug.WriteLine("!!! [SoilVM] Пропущена гонка потоков при загрузке данных.");
+                await Task.Delay(100); // Ждём чуть-чуть
+                await LoadData();      // Рекурсивно пробуем снова
+            }
         }
 
         private async Task AddNew()
@@ -130,7 +142,8 @@ namespace BeerZdec.ViewModels
             };
 
             await _soilRepo.AddAsync(newSoil);
-            SoilTypes.Add(newSoil);
+            // После добавления перезагружаем список, чтобы получить ID и связи
+            await LoadData();
 
             // Сбрасываем форму
             EditName = string.Empty;
@@ -147,7 +160,9 @@ namespace BeerZdec.ViewModels
             SelectedSoilType.SoilType_Name = EditName;
             SelectedSoilType.SoilType_TextureClass = SelectedTextureClass!.SoilTextureClass_ID;
 
-            _soilRepo.Update(SelectedSoilType);
+            //_soilRepo.Update(SelectedSoilType);
+            await _soilRepo.SaveChangesAsync();
+
             await LoadData(); // Перезагружаем, чтобы обновить связи
             CancelEdit();
         }
@@ -157,6 +172,8 @@ namespace BeerZdec.ViewModels
             if (SelectedSoilType == null || !CanDelete()) return;
 
             _soilRepo.Remove(SelectedSoilType);
+            await _soilRepo.SaveChangesAsync();
+
             await LoadData();
             CancelEdit();
         }

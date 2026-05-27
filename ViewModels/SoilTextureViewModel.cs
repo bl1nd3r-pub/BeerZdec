@@ -29,12 +29,11 @@ namespace BeerZdec.ViewModels
             TextureClasses = new ObservableCollection<SoilTextureClass>();
 
             LoadCommand = new RelayCommandAsync(LoadData);
+
             AddCommand = new RelayCommandAsync(AddNew, CanAdd);
             SaveCommand = new RelayCommandAsync(SaveData, CanSave);
             DeleteCommand = new RelayCommandAsync(DeleteData, CanDelete);
             CancelCommand = new RelayCommand(CancelEdit);
-
-            _ = LoadData();
         }
 
         private ObservableCollection<SoilTextureClass> _textureClasses;
@@ -96,9 +95,18 @@ namespace BeerZdec.ViewModels
         private async Task LoadData()
         {
 
-            var textures = await _repo.Query().AsNoTracking().ToListAsync();
-            TextureClasses.Clear();
-            foreach (var t in textures) TextureClasses.Add(t);
+            try
+            {
+                var textures = await _repo.Query().AsNoTracking().ToListAsync();
+                TextureClasses.Clear();
+                foreach (var t in textures) TextureClasses.Add(t);
+            }
+            catch (InvalidOperationException ex) when (ex.Message.Contains("A second operation was started"))
+            {
+                Debug.WriteLine("!!! [SoilTextureVM] Пропущена гонка потоков при загрузке данных.");
+                await Task.Delay(100); // Ждём
+                await LoadData();      // Рекурсивно пробуем снова
+            }
         }
 
         private async Task AddNew()
@@ -128,7 +136,9 @@ namespace BeerZdec.ViewModels
             if (SelectedTexture == null || !CanSave()) return;
 
             SelectedTexture.SoilTextureClass_Name = EditName;
+
             _repo.Update(SelectedTexture);
+            await _repo.SaveChangesAsync();
 
             await LoadData();
             CancelEdit();
@@ -152,6 +162,8 @@ namespace BeerZdec.ViewModels
             }
 
             _repo.Remove(SelectedTexture);
+            await _repo.SaveChangesAsync();
+
             await LoadData();
             CancelEdit();
         }

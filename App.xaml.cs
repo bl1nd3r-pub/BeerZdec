@@ -24,12 +24,13 @@ namespace BeerZdec
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
-            var connectionString = configuration.GetConnectionString("ColledgeConnection");
+            var connectionString = configuration.GetConnectionString("HomeConnection");
 
             var services = new ServiceCollection();
 
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseSqlServer(connectionString),
+                ServiceLifetime.Scoped);
 
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddScoped<IRepository<UserRole>, DbRepository<UserRole>>();
