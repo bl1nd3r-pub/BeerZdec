@@ -27,6 +27,7 @@ namespace BeerZdec.Views
                 vm.StorageCellContext.LoadCommand.Execute(null);
                 vm.HarvestEventContext.LoadCommand.Execute(null);
                 vm.GrainBatchContext.LoadCommand.Execute(null);
+                vm.StorageMoveContext.LoadCommand.Execute(null);
                 _isInitialized = true;
             }
         }

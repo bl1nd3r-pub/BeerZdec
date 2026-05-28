@@ -44,5 +44,9 @@
             <ContentControl Content="{Binding GrainBatchContext}" />
         </TabItem>
 
+        <TabItem Header="Перемещения" Padding="10,5">
+            <ContentControl Content="{Binding StorageMoveContext}" />
+        </TabItem>
+
     </TabControl>
 </UserControl>

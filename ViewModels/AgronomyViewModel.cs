@@ -19,6 +19,7 @@ namespace BeerZdec.ViewModels
         private readonly StorageCellViewModel _storageCellViewModel;
         private readonly HarvestEventViewModel _harvestEventViewModel;
         private readonly GrainBatchViewModel _grainBatchViewModel;
+        private readonly StorageMoveViewModel _storageMoveViewModel;
 
         // Внедряем дочерний ViewModel через DI
         public AgronomyViewModel(
@@ -30,7 +31,8 @@ namespace BeerZdec.ViewModels
             SowingProcessViewModel sowingProcessViewModel,
             StorageCellViewModel storageCellViewModel,
             HarvestEventViewModel harvestEventViewModel,
-            GrainBatchViewModel grainBatchViewModel
+            GrainBatchViewModel grainBatchViewModel,
+            StorageMoveViewModel storageMoveViewModel
             )
         {
             _soilViewModel = soilViewModel ?? throw new ArgumentNullException(nameof(soilViewModel));
@@ -42,7 +44,7 @@ namespace BeerZdec.ViewModels
             _storageCellViewModel = storageCellViewModel ?? throw new ArgumentNullException(nameof(storageCellViewModel));
             _harvestEventViewModel = harvestEventViewModel ?? throw new ArgumentNullException(nameof(harvestEventViewModel));
             _grainBatchViewModel = grainBatchViewModel ?? throw new ArgumentNullException(nameof(grainBatchViewModel));
-
+            _storageMoveViewModel = storageMoveViewModel ?? throw new ArgumentNullException(nameof(storageMoveViewModel));
         }
 
         // Свойства, которые мы будем передавать во View
@@ -55,6 +57,8 @@ namespace BeerZdec.ViewModels
         public StorageCellViewModel StorageCellContext => _storageCellViewModel;
         public HarvestEventViewModel HarvestEventContext => _harvestEventViewModel;
         public GrainBatchViewModel GrainBatchContext => _grainBatchViewModel;
+        public StorageMoveViewModel StorageMoveContext => _storageMoveViewModel;
+
 
         public void Initialize()
         {
@@ -67,6 +71,8 @@ namespace BeerZdec.ViewModels
             _storageCellViewModel.LoadCommand.Execute(null);
             _harvestEventViewModel.LoadCommand.Execute(null);
             _grainBatchViewModel.LoadCommand.Execute(null);
+            _storageMoveViewModel.LoadCommand.Execute(null);
+
         }
     }
 }

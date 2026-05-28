@@ -60,5 +60,8 @@
         <DataTemplate DataType="{x:Type vm:GrainBatchViewModel}">
             <v:GrainBatchView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:StorageMoveViewModel}">
+            <v:StorageMoveView />
+        </DataTemplate>
     </Application.Resources>
 </Application>

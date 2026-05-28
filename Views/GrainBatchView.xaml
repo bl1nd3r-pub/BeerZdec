@@ -26,6 +26,7 @@
                     <DataGridTextColumn Header="Качество" Binding="{Binding GB_QualGradeNavigation.GBQualGrade_Name}" Width="120"/>
                     <DataGridTextColumn Header="Вес (кг)" Binding="{Binding GB_WeightReceived}" Width="100"/>
                     <DataGridTextColumn Header="Влажность %" Binding="{Binding GB_Moisture}" Width="80"/>
+                    <DataGridTextColumn Header="Примеси %" Binding="{Binding GB_ForeignMatter}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
