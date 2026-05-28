@@ -7,13 +7,11 @@
              Loaded="UserControl_Loaded"
              mc:Ignorable="d">
     <TabControl TabStripPlacement="Left" Margin="0,0,0,10" SelectedIndex="0">
-
-        <!-- Вкладки будут добавляться по мере создания ViewModel -->
-        <!-- 
+        
         <TabItem Header="Поставщики" Padding="10,5">
             <ContentControl Content="{Binding SuppliersContext}" />
         </TabItem>
-
+        <!--
         <TabItem Header="Типы сырья" Padding="10,5">
             <ContentControl Content="{Binding SuppliableCrudeContext}" />
         </TabItem>
@@ -30,16 +28,6 @@
             <ContentControl Content="{Binding WareCellsContext}" />
         </TabItem>
         -->
-
-        <!-- Временная заглушка -->
-        <TabItem Header="Информация" Padding="10,5">
-            <Grid Margin="10">
-                <TextBlock Text="Модуль 'Сырьё' в разработке..." 
-                          FontSize="16" 
-                          HorizontalAlignment="Center" 
-                          VerticalAlignment="Center"/>
-            </Grid>
-        </TabItem>
 
     </TabControl>
 </UserControl>
