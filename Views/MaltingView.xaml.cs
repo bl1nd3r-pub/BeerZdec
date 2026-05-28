@@ -20,6 +20,8 @@ namespace BeerZdec.Views
             {
                 vm.MaltingLinesContext.LoadCommand.Execute(null);
                 vm.MaltEquipTypesContext.LoadCommand.Execute(null);
+                vm.MaltEquipmentContext.LoadCommand.Execute(null);
+                vm.MaltingOrdersContext.LoadCommand.Execute(null);
 
                 _isInitialized = true;
             }

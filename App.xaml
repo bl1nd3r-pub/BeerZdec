@@ -11,6 +11,7 @@
         <conv:InvertedBoolToVisibilityConverter x:Key="InvertedBoolToVis"/>
 
         <!-- ======= Карта навигации ======= -->
+        
         <!-- База -->
         <DataTemplate DataType="{x:Type vm:WelcomeViewModel}">
             <v:WelcomeView />
@@ -24,6 +25,7 @@
         <DataTemplate DataType="{x:Type vm:AboutViewModel}">
             <v:AboutView />
         </DataTemplate>
+        
         <!-- Админка -->
         <DataTemplate DataType="{x:Type vm:AdminViewModel}">
             <v:AdminView />
@@ -73,6 +75,12 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:MaltEquipTypesViewModel}">
             <v:MaltEquipTypesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MaltEquipmentViewModel}">
+            <v:MaltEquipmentView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MaltingOrdersViewModel}">
+            <v:MaltingOrdersView />
         </DataTemplate>
 
     </Application.Resources>

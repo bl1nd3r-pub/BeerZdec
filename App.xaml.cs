@@ -28,17 +28,6 @@ namespace BeerZdec
 
             var services = new ServiceCollection();
 
-            // - Таблица - справочник элеваторов - ячеек +
-            // - Таблица по посеву семян на участки +
-            // - Таблица сбора урожая с участков
-            // - Таблица партий зерна
-            // - Таблица перемещений партий меж ячеек-элеваторов
-
-            // И просто в бд, без отдельных вкладок надо добавить данные для:
-
-            // - Статусы партий зерна(считай, что enum, но только в БД.Они как и юзер-роли будут оч редко меняться)
-            // - Качества партий зерна(то же самое)
-
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString),
                 ServiceLifetime.Scoped);
@@ -78,6 +67,8 @@ namespace BeerZdec
             services.AddTransient<MaltingViewModel>();
             services.AddTransient<MaltingLinesViewModel>();
             services.AddTransient<MaltEquipTypesViewModel>();
+            services.AddTransient<MaltEquipmentViewModel>();
+            services.AddTransient<MaltingOrdersViewModel>();
 
             // MainWindow
             services.AddTransient<MainWindowViewModel>();

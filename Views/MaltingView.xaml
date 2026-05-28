@@ -17,15 +17,15 @@
         <TabItem Header="Типы оборудования" Padding="10,5">
             <ContentControl Content="{Binding MaltEquipTypesContext}" />
         </TabItem>
-        <!-- 
 
-        <TabItem Header="Оборудование" Padding="10,5">
+        <TabItem Header="Оборудование цеха" Padding="10,5">
             <ContentControl Content="{Binding MaltEquipmentContext}" />
         </TabItem>
 
         <TabItem Header="Заказы на солодоращение" Padding="10,5">
             <ContentControl Content="{Binding MaltingOrdersContext}" />
         </TabItem>
+        <!-- 
 
         <TabItem Header="Отгрузка зерна" Padding="10,5">
             <ContentControl Content="{Binding StorageToMaltingContext}" />

@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="BeerZdec.Views.MaltEquipmentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BeerZdec.Views"
+             mc:Ignorable="d">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Таблица оборудования -->
+        <GroupBox Grid.Column="0" Header="Оборудование солодовни" Margin="0,0,10,0">
+            <DataGrid ItemsSource="{Binding Equipment}" 
+                      SelectedItem="{Binding SelectedEquip}"
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding MaltEquipment_ID}" Width="50"/>
+                    <DataGridTextColumn Header="Тип" Binding="{Binding MaltEquipment_TypeNavigation.MaltEquipType_Name}" Width="150"/>
+                    <DataGridTextColumn Header="Линия" Binding="{Binding MaltEquipment_MaltingLineNavigation.MaltingLine_ID}" Width="150"/>
+                    <DataGridTextColumn Header="Производитель" Binding="{Binding MaltEquipment_Manufacturer}" Width="*"/>
+                    <DataGridTextColumn Header="Активно" Binding="{Binding MaltEquipment_IsActive}" Width="70"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <!-- Форма редактирования -->
+        <GroupBox Grid.Column="1" Header="Редактирование" Margin="10,0,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Линия солодовни:" Margin="0,0,0,5"/>
+                    <ComboBox ItemsSource="{Binding Lines}" 
+                             SelectedItem="{Binding SelectedLine}"
+                             DisplayMemberPath="MaltingLine_ID"
+                             Margin="0,0,0,10" Padding="5"/>
+
+                    <TextBlock Text="Тип оборудования:" Margin="0,0,0,5"/>
+                    <ComboBox ItemsSource="{Binding Types}" 
+                             SelectedItem="{Binding SelectedType}"
+                             DisplayMemberPath="MaltEquipType_Name"
+                             Margin="0,0,0,10" Padding="5"/>
+
+                    <TextBlock Text="Производитель:" Margin="0,0,0,5"/>
+                    <TextBox Text="{Binding EditManufacturer, UpdateSourceTrigger=PropertyChanged}" 
+                             Margin="0,0,0,10" Padding="5"/>
+
+                    <TextBlock Text="Дата установки:" Margin="0,0,0,5"/>
+                    <DatePicker SelectedDate="{Binding EditInstallDate, UpdateSourceTrigger=PropertyChanged}" 
+                               Margin="0,0,0,10" Padding="5"/>
+
+                    <CheckBox Content="Активно" 
+                             IsChecked="{Binding EditIsActive, UpdateSourceTrigger=PropertyChanged}" 
+                             Margin="0,0,0,20"/>
+
+                    <Button Content="Добавить" 
+                           Command="{Binding AddCommand}"
+                           Padding="10,5" Margin="0,0,0,10"
+                           Background="#2196F3" Foreground="White"/>
+
+                    <Button Content="Сохранить" 
+                           Command="{Binding SaveCommand}"
+                           Padding="10,5" Margin="0,0,0,10"
+                           Background="#4CAF50" Foreground="White"/>
+
+                    <Button Content="Удалить" 
+                           Command="{Binding DeleteCommand}"
+                           Padding="10,5" Margin="0,0,0,10"
+                           Background="#f44336" Foreground="White"/>
+
+                    <Button Content="Отмена" 
+                           Command="{Binding CancelCommand}"
+                           Padding="10,5"
+                           Background="#9E9E9E" Foreground="White"/>
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
+    </Grid>
+</UserControl>
