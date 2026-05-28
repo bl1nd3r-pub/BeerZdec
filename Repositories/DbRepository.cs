@@ -82,7 +82,7 @@ namespace BeerZdec.Repositories
 
         public virtual void Remove(T entity)
         {
-            _dbSet.Remove(entity);
+            _context.Entry(entity).State = EntityState.Deleted;
             _context.SaveChanges();
         }
 

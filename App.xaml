@@ -35,5 +35,11 @@
         <DataTemplate DataType="{x:Type vm:SoilTextureViewModel}">
             <v:SoilTextureView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VarietyViewModel}">
+            <v:VarietyView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:GrainViewModel}">
+            <v:GrainView />
+        </DataTemplate>
     </Application.Resources>
 </Application>

@@ -21,6 +21,8 @@ namespace BeerZdec.Views
                 // Загружаем данные для первой вкладки (по умолчанию активной)
                 vm.TextureContext.LoadCommand.Execute(null);
                 vm.SoilContext.LoadCommand.Execute(null);
+                vm.VarietyContext.LoadCommand.Execute(null);
+                vm.GrainContext.LoadCommand.Execute(null);
                 _isInitialized = true;
             }
         }

@@ -7,18 +7,21 @@
              Loaded="UserControl_Loaded"
              mc:Ignorable="d">
     <TabControl TabStripPlacement="Left" Margin="0,0,0,10" SelectedIndex="0">
-        <!-- Вкладка Классы текстур -->
+
         <TabItem Header="Классы текстур" Padding="10,5">
             <ContentControl Content="{Binding TextureContext}" />
         </TabItem>
 
-        <!-- Вкладка Типы почв -->
         <TabItem Header="Типы почв" Padding="10,5">
             <ContentControl Content="{Binding SoilContext}" />
         </TabItem>
 
-        <TabItem Header="Зерно и Сорта" Padding="10,5" IsEnabled="False">
-            <TextBlock Text="В разработке..." HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TabItem Header="Зерно" Padding="10,5" IsEnabled="True">
+            <ContentControl Content="{Binding GrainContext}" />
+        </TabItem>
+
+        <TabItem Header="Сорта зерна" Padding="10,5" IsEnabled="True">
+            <ContentControl Content="{Binding VarietyContext}" />
         </TabItem>
         <TabItem Header="Орошение" Padding="10,5" IsEnabled="False">
             <TextBlock Text="В разработке..." HorizontalAlignment="Center" VerticalAlignment="Center"/>
