@@ -31,8 +31,6 @@ namespace BeerZdec.ViewModels
             NavigateToAgronomyCommand = new RelayCommand(() => _navigation.NavigateTo<AgronomyViewModel>());
 
             _navigation.NavigateTo<WelcomeViewModel>();
-
-            _ = InitializePermissionsAsync();
         }
 
         // Публичные свойства для биндинга видимости кнопок

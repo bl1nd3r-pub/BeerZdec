@@ -145,9 +145,7 @@ namespace BeerZdec.ViewModels
             SelectedVariety.Variety_MaturityGroup = EditMaturityGroup;
             SelectedVariety.Variety_MaltingPurpose = EditMaltingPurpose;
 
-            // Явно помечаем как изменённый и сохраняем
-            _repo.Update(SelectedVariety);
-            await _repo.SaveChangesAsync();
+            await _repo.UpdateAsync(SelectedVariety);
 
             await LoadData();
             CancelEdit();
@@ -157,8 +155,16 @@ namespace BeerZdec.ViewModels
         {
             if (SelectedVariety == null || !CanDelete()) return;
 
-            _repo.Remove(SelectedVariety);
-            await _repo.SaveChangesAsync();
+            var success = await _repo.RemoveAsync(SelectedVariety);
+
+            if (!success)
+            {
+                _dialogService.ShowError(
+                    "Эта запись используется в других таблицах.\n" +
+                    "Удалить нельзя. Сначала удалите связанные участки.",
+                    "Ошибка удаления");
+                return;
+            }
 
             await LoadData();
             CancelEdit();

@@ -1,5 +1,6 @@
 ﻿using BeerZdec.Interfaces;
 using BeerZdec.Models;
+using BeerZdec.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -14,11 +15,17 @@ namespace BeerZdec.ViewModels
     {
         private readonly IRepository<SoilType> _soilRepo;
         private readonly IRepository<SoilTextureClass> _textureRepo;
+        private readonly IDialogService _dialogService;
 
-        public SoilViewModel(IRepository<SoilType> soilRepo, IRepository<SoilTextureClass> textureRepo)
+        public SoilViewModel(
+            IRepository<SoilType> soilRepo,
+            IRepository<SoilTextureClass> textureRepo,
+            IDialogService dialogService
+            )
         {
             _soilRepo = soilRepo;
             _textureRepo = textureRepo;
+            _dialogService = dialogService;
 
             SoilTypes = new ObservableCollection<SoilType>();
             TextureClasses = new ObservableCollection<SoilTextureClass>();
@@ -160,10 +167,9 @@ namespace BeerZdec.ViewModels
             SelectedSoilType.SoilType_Name = EditName;
             SelectedSoilType.SoilType_TextureClass = SelectedTextureClass!.SoilTextureClass_ID;
 
-            //_soilRepo.Update(SelectedSoilType);
-            await _soilRepo.SaveChangesAsync();
+            await _soilRepo.UpdateAsync(SelectedSoilType);
 
-            await LoadData(); // Перезагружаем, чтобы обновить связи
+            await LoadData();
             CancelEdit();
         }
 
@@ -171,8 +177,16 @@ namespace BeerZdec.ViewModels
         {
             if (SelectedSoilType == null || !CanDelete()) return;
 
-            _soilRepo.Remove(SelectedSoilType);
-            await _soilRepo.SaveChangesAsync();
+            var success = await _soilRepo.RemoveAsync(SelectedSoilType);
+
+            if (!success)
+            {
+                _dialogService.ShowError(
+                    "Этот тип почвы используется в посевных участках.\n" +
+                    "Удалить нельзя. Сначала удалите связанные участки.",
+                    "Ошибка удаления");
+                return;
+            }
 
             await LoadData();
             CancelEdit();

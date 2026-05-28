@@ -137,8 +137,7 @@ namespace BeerZdec.ViewModels
 
             SelectedTexture.SoilTextureClass_Name = EditName;
 
-            _repo.Update(SelectedTexture);
-            await _repo.SaveChangesAsync();
+            await _repo.UpdateAsync(SelectedTexture);
 
             await LoadData();
             CancelEdit();
@@ -148,11 +147,9 @@ namespace BeerZdec.ViewModels
         {
             if (SelectedTexture == null || !CanDelete()) return;
 
-            // 👇 Проверяем, используется ли класс текстуры в типах почв
-            var soilTypes = await _soilRepo.Query().ToListAsync();
-            var isUsed = soilTypes.Any(s => s.SoilType_TextureClass == SelectedTexture.SoilTextureClass_ID);
+            var success = await _repo.RemoveAsync(SelectedTexture);
 
-            if (isUsed)
+            if (!success)
             {
                 _dialogService.ShowError(
                     "Этот класс текстуры используется в типах почв.\n" +
@@ -160,9 +157,6 @@ namespace BeerZdec.ViewModels
                     "Ошибка удаления");
                 return;
             }
-
-            _repo.Remove(SelectedTexture);
-            await _repo.SaveChangesAsync();
 
             await LoadData();
             CancelEdit();

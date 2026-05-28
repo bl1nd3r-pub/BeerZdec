@@ -13,12 +13,17 @@ namespace BeerZdec.Interfaces
         Task<T?> GetByIdAsync(int id);
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
         Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate);
+
+        // Async-only методы
         Task AddAsync(T entity);
         Task AddRangeAsync(IEnumerable<T> entities);
-        Task SaveChangesAsync();
-        void Update(T entity);
-        void Remove(T entity);
-        void RemoveRange(IEnumerable<T> entities);
+
+        Task<bool> UpdateAsync(T entity); // Возвращаем bool (успех/ошибка)
+        Task<bool> RemoveAsync(T entity); // Возвращаем bool (успех/ошибка)
+        Task RemoveRangeAsync(IEnumerable<T> entities);
+
+        Task<bool> SaveChangesAsync(); // Возвращаем bool
+
         IQueryable<T> Query();
     }
 }

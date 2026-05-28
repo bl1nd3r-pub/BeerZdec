@@ -23,8 +23,10 @@
         <TabItem Header="Сорта зерна" Padding="10,5" IsEnabled="True">
             <ContentControl Content="{Binding VarietyContext}" />
         </TabItem>
-        <TabItem Header="Орошение" Padding="10,5" IsEnabled="False">
-            <TextBlock Text="В разработке..." HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <TabItem Header="Посевные участки" Padding="10,5">
+            <ContentControl Content="{Binding SowingPlotContext}" />
         </TabItem>
+        
     </TabControl>
 </UserControl>

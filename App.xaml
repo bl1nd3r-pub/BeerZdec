@@ -41,5 +41,8 @@
         <DataTemplate DataType="{x:Type vm:GrainViewModel}">
             <v:GrainView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SowingPlotViewModel}">
+            <v:SowingPlotView />
+        </DataTemplate>
     </Application.Resources>
 </Application>

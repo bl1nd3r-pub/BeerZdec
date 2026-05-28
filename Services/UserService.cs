@@ -45,7 +45,7 @@ namespace BeerZdec.Services
             user.UsLogin = newLogin;
             user.UserRoleId = newUserRoleId;
 
-            _userRepository.Update(user);
+            await _userRepository.UpdateAsync(user);
             return true;
         }
 
@@ -54,7 +54,7 @@ namespace BeerZdec.Services
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null) return false;
 
-            _userRepository.Remove(user);
+            await _userRepository.RemoveAsync(user);
             return true;
         }
     }

@@ -130,8 +130,7 @@ namespace BeerZdec.ViewModels
             SelectedGrain.Grain_NameRu = EditNameRu;
             SelectedGrain.Grain_NameLatin = EditNameLatin;
 
-            _repo.Update(SelectedGrain);
-            await _repo.SaveChangesAsync();
+            await _repo.UpdateAsync(SelectedGrain);
 
             await LoadData();
             CancelEdit();
@@ -141,10 +140,9 @@ namespace BeerZdec.ViewModels
         {
             if (SelectedGrain == null || !CanDelete()) return;
 
-            var hasChildren = await _varietyRepo.Query()
-                .AnyAsync(v => v.Variety_Grain == SelectedGrain.Grain_ID);
+            var success = await _repo.RemoveAsync(SelectedGrain);
 
-            if (hasChildren)
+            if (!success)
             {
                 _dialogService.ShowError(
                     "Это зерно используется в сортах.\n" +
@@ -152,9 +150,6 @@ namespace BeerZdec.ViewModels
                     "Ошибка удаления");
                 return;
             }
-
-            _repo.Remove(SelectedGrain);
-            await _repo.SaveChangesAsync();
 
             await LoadData();
             CancelEdit();
