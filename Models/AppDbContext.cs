@@ -44,6 +44,7 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<SoilTextureClass> SoilTextureClasses { get; set; }
     public virtual DbSet<SoilType> SoilTypes { get; set; }
     public virtual DbSet<SowingPlot> SowingPlots { get; set; }
+    public virtual DbSet<SowingProcess> SowingProcesses { get; set; }
     public virtual DbSet<StorageCell> StorageCells { get; set; }
     public virtual DbSet<StorageMove> StorageMoves { get; set; }
     public virtual DbSet<StorageToMalting> StorageToMaltings { get; set; }
@@ -54,6 +55,7 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<Variety> Varieties { get; set; }
     public virtual DbSet<WareCell> WareCells { get; set; }
     public virtual DbSet<WholesaleCustomer> WholesaleCustomers { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -140,6 +142,26 @@ public partial class AppDbContext : DbContext
                 .HasForeignKey(d => d.BrewIngr_BrewBatch).HasConstraintName("FK_BrewIngr_BrewBatch");
             entity.HasOne(d => d.BrewIngr_CrudeNavigation).WithMany(p => p.BrewIngredients)
                 .HasForeignKey(d => d.BrewIngr_Crude).HasConstraintName("FK_BrewIngr_Crude");
+        });
+
+        modelBuilder.Entity<SowingProcess>(entity =>
+        {
+            entity.ToTable("SowingProcess");
+            entity.HasKey(e => e.SowingProcess_ID).HasName("PK_SowingProcess_ID");
+
+            entity.Property(e => e.SowProc_Datetime).HasColumnType("date");
+
+            entity.HasOne(d => d.SowProc_VarietyNavigation)
+                  .WithMany() // Если у Variety нет обратной коллекции, оставляем пустым
+                  .HasForeignKey(d => d.SowProc_Variety)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("FK_SowProc_Variety");
+
+            entity.HasOne(d => d.SowProc_SowPlotNavigation)
+                  .WithMany()
+                  .HasForeignKey(d => d.SowProc_SowPlot)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("FK_SowProc_SowPlot");
         });
 
         modelBuilder.Entity<BrewingBatch>(entity =>

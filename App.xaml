@@ -44,5 +44,8 @@
         <DataTemplate DataType="{x:Type vm:SowingPlotViewModel}">
             <v:SowingPlotView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SowingProcessViewModel}">
+            <v:SowingProcessView />
+        </DataTemplate>
     </Application.Resources>
 </Application>

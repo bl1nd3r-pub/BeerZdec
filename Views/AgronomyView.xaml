@@ -27,6 +27,10 @@
         <TabItem Header="Посевные участки" Padding="10,5">
             <ContentControl Content="{Binding SowingPlotContext}" />
         </TabItem>
-        
+
+        <TabItem Header="Посев семян" Padding="10,5">
+            <ContentControl Content="{Binding SowingProcessContext}" />
+        </TabItem>
+
     </TabControl>
 </UserControl>

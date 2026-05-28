@@ -15,6 +15,7 @@ namespace BeerZdec.ViewModels
         private readonly VarietyViewModel _varietyViewModel;
         private readonly GrainViewModel _grainViewModel;
         private readonly SowingPlotViewModel _sowingPlotViewModel;
+        private readonly SowingProcessViewModel _sowingProcessViewModel;
 
         // Внедряем дочерний ViewModel через DI
         public AgronomyViewModel(
@@ -22,7 +23,8 @@ namespace BeerZdec.ViewModels
             SoilTextureViewModel textureViewModel,
             VarietyViewModel varietyViewModel,
             GrainViewModel grainViewModel,
-            SowingPlotViewModel sowingPlotViewModel
+            SowingPlotViewModel sowingPlotViewModel,
+            SowingProcessViewModel sowingProcessViewModel
             )
         {
             _soilViewModel = soilViewModel ?? throw new ArgumentNullException(nameof(soilViewModel));
@@ -30,6 +32,7 @@ namespace BeerZdec.ViewModels
             _varietyViewModel = varietyViewModel ?? throw new ArgumentNullException(nameof(varietyViewModel));
             _grainViewModel = grainViewModel ?? throw new ArgumentNullException(nameof(grainViewModel));
             _sowingPlotViewModel = sowingPlotViewModel ?? throw new ArgumentNullException(nameof(sowingPlotViewModel));
+            _sowingProcessViewModel = sowingProcessViewModel ?? throw new ArgumentNullException(nameof(sowingProcessViewModel));
         }
 
         // Свойство, которое мы будем передавать во View
@@ -38,6 +41,7 @@ namespace BeerZdec.ViewModels
         public VarietyViewModel VarietyContext => _varietyViewModel;
         public GrainViewModel GrainContext => _grainViewModel;
         public SowingPlotViewModel SowingPlotContext => _sowingPlotViewModel;
+        public SowingProcessViewModel SowingProcessContext => _sowingProcessViewModel;
 
         public void Initialize()
         {
@@ -46,6 +50,7 @@ namespace BeerZdec.ViewModels
             _varietyViewModel.LoadCommand.Execute(null);
             _grainViewModel.LoadCommand.Execute(null);
             _sowingPlotViewModel.LoadCommand.Execute(null);
+            _sowingProcessViewModel.LoadCommand.Execute(null);
         }
     }
 }

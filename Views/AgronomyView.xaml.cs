@@ -24,6 +24,7 @@ namespace BeerZdec.Views
                 vm.VarietyContext.LoadCommand.Execute(null);
                 vm.GrainContext.LoadCommand.Execute(null);
                 vm.SowingPlotContext.LoadCommand.Execute(null);
+                vm.SowingProcessContext.LoadCommand.Execute(null);
                 _isInitialized = true;
             }
         }

@@ -54,6 +54,7 @@ namespace BeerZdec
             services.AddTransient<VarietyViewModel>();
             services.AddTransient<GrainViewModel>();
             services.AddTransient<SowingPlotViewModel>();
+            services.AddTransient<SowingProcessViewModel>();
 
             services.AddTransient<MainWindowViewModel>();
             services.AddSingleton<MainWindow>(sp =>
