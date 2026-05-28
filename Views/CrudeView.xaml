@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="BeerZdec.Views.CrudeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BeerZdec.Views"
+             Loaded="UserControl_Loaded"
+             mc:Ignorable="d">
+    <TabControl TabStripPlacement="Left" Margin="0,0,0,10" SelectedIndex="0">
+
+        <!-- Вкладки будут добавляться по мере создания ViewModel -->
+        <!-- 
+        <TabItem Header="Поставщики" Padding="10,5">
+            <ContentControl Content="{Binding SuppliersContext}" />
+        </TabItem>
+
+        <TabItem Header="Типы сырья" Padding="10,5">
+            <ContentControl Content="{Binding SuppliableCrudeContext}" />
+        </TabItem>
+
+        <TabItem Header="Поставки" Padding="10,5">
+            <ContentControl Content="{Binding CrudeSuppliesContext}" />
+        </TabItem>
+
+        <TabItem Header="Сырьё на складе" Padding="10,5">
+            <ContentControl Content="{Binding CrudeOnStockContext}" />
+        </TabItem>
+
+        <TabItem Header="Ячейки склада" Padding="10,5">
+            <ContentControl Content="{Binding WareCellsContext}" />
+        </TabItem>
+        -->
+
+        <!-- Временная заглушка -->
+        <TabItem Header="Информация" Padding="10,5">
+            <Grid Margin="10">
+                <TextBlock Text="Модуль 'Сырьё' в разработке..." 
+                          FontSize="16" 
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center"/>
+            </Grid>
+        </TabItem>
+
+    </TabControl>
+</UserControl>

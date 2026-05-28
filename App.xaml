@@ -92,5 +92,10 @@
             <v:MaltBatchesView />
         </DataTemplate>
 
+        <!-- Сырьё -->
+        <DataTemplate DataType="{x:Type vm:CrudeViewModel}">
+            <v:CrudeView />
+        </DataTemplate>
+
     </Application.Resources>
 </Application>

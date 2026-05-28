@@ -30,6 +30,7 @@ namespace BeerZdec.ViewModels
             NavigateToAdminCommand = new RelayCommand(() => _navigation.NavigateTo<AdminViewModel>());
             NavigateToAgronomyCommand = new RelayCommand(() => _navigation.NavigateTo<AgronomyViewModel>());
             NavigateToMaltingCommand = new RelayCommand(() => _navigation.NavigateTo<MaltingViewModel>());
+            NavigateToCrudeCommand = new RelayCommand(() => _navigation.NavigateTo<CrudeViewModel>());
 
             _navigation.NavigateTo<WelcomeViewModel>();
         }
@@ -40,6 +41,7 @@ namespace BeerZdec.ViewModels
         public bool CanSeeBrewing => CheckAccess("BrewingModule");
         public bool CanSeeSales => CheckAccess("SalesModule");
         public bool CanSeeMalting => CheckAccess("MaltingModule");
+        public bool CanSeeCrude => CheckAccess("CrudeModule");
 
         // Метод проверки доступа через сервис
         private bool CheckAccess(string viewCode)
@@ -70,6 +72,7 @@ namespace BeerZdec.ViewModels
             OnPropertyChanged(nameof(CanSeeBrewing));
             OnPropertyChanged(nameof(CanSeeSales));
             OnPropertyChanged(nameof(CanSeeMalting));
+            OnPropertyChanged(nameof(CanSeeCrude));
         }
 
         public void Dispose()
@@ -84,5 +87,6 @@ namespace BeerZdec.ViewModels
         public ICommand NavigateToAdminCommand { get; }
         public ICommand NavigateToAgronomyCommand { get; }
         public ICommand NavigateToMaltingCommand { get; }
+        public ICommand NavigateToCrudeCommand { get; }
     }
 }

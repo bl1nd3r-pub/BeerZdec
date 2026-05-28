@@ -21,6 +21,10 @@
             <Button Content="Солодовня" 
                 Command="{Binding NavigateToMaltingCommand}" Margin="5" Padding="10,5"
                 Visibility="{Binding CanSeeMalting, Converter={StaticResource BoolToVis}}"/>
+            <!-- Добавь эту кнопку -->
+            <Button Content="Сырьё" 
+                Command="{Binding NavigateToCrudeCommand}" Margin="5" Padding="10,5"
+                Visibility="{Binding CanSeeCrude, Converter={StaticResource BoolToVis}}"/>
 
         </StackPanel>
 
