@@ -19,11 +19,11 @@
         <TabItem Header="Поставки" Padding="10,5">
             <ContentControl Content="{Binding CrudeSuppliesContext}" />
         </TabItem>
-        <!--
 
         <TabItem Header="Сырьё на складе" Padding="10,5">
-            <ContentControl Content="{Binding CrudeOnStockContext}" />
+            <ContentControl Content="{Binding CrudeStockContext}" />
         </TabItem>
+        <!--
 
         <TabItem Header="Ячейки склада" Padding="10,5">
             <ContentControl Content="{Binding WareCellsContext}" />
