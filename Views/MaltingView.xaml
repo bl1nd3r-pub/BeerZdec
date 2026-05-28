@@ -9,11 +9,11 @@
     <TabControl TabStripPlacement="Left" Margin="0,0,0,10" SelectedIndex="0">
 
         <!-- Вкладки будут добавляться по мере создания ViewModel -->
-        <!-- 
+
         <TabItem Header="Линии солодовни" Padding="10,5">
             <ContentControl Content="{Binding MaltingLinesContext}" />
         </TabItem>
-
+        <!-- 
         <TabItem Header="Типы оборудования" Padding="10,5">
             <ContentControl Content="{Binding MaltEquipTypesContext}" />
         </TabItem>
@@ -39,15 +39,7 @@
         </TabItem>
         -->
 
-        <!-- Временная заглушка -->
-        <TabItem Header="Информация" Padding="10,5">
-            <Grid Margin="10">
-                <TextBlock Text="Модуль 'Солодовня' в разработке..." 
-                          FontSize="16" 
-                          HorizontalAlignment="Center" 
-                          VerticalAlignment="Center"/>
-            </Grid>
-        </TabItem>
+        
 
     </TabControl>
 </UserControl>

@@ -18,12 +18,8 @@ namespace BeerZdec.Views
 
             if (DataContext is MaltingViewModel vm)
             {
-                // Здесь будут вызовы LoadCommand для каждой вкладки
-                // vm.MaltingLinesContext.LoadCommand.Execute(null);
-                // vm.MaltEquipTypesContext.LoadCommand.Execute(null);
-                // и т.д.
+                vm.MaltingLinesContext.LoadCommand.Execute(null);
 
-                //vm.Initialize();
                 _isInitialized = true;
             }
         }

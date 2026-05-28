@@ -11,9 +11,9 @@
         <!-- Навигационная панелька -->
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="#f0f0f0" Margin="0,0,0,10">
             <Button Content="Главная" Command="{Binding NavigateToWelcomeCommand}"
-                    Background="LightPink" Margin="5" Padding="10,5"/>
+                    Background="LightGoldenrodYellow" Margin="5" Padding="10,5"/>
             <Button Content="О программе" Command="{Binding NavigateToAboutCommand}"
-                    Background="LightPink" Margin="5" Padding="10,5"/>
+                    Background="LightGoldenrodYellow" Margin="5" Padding="10,5"/>
             <Button Content="Администрирование" Command="{Binding NavigateToAdminCommand}" Margin="5" Padding="10,5"
                 Visibility="{Binding CanSeeAdminPanel, Converter={StaticResource BoolToVis}}"/>
             <Button Content="Агрономия" Command="{Binding NavigateToAgronomyCommand}"  Margin="5" Padding="10,5"

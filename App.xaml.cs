@@ -54,11 +54,15 @@ namespace BeerZdec
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IPermissionService, PermissionService>();
 
+            // ===== VM =====
+            // Basic vm
             services.AddTransient<AboutViewModel>();
-            services.AddTransient<AdminViewModel>();
             services.AddTransient<WelcomeViewModel>();
             services.AddTransient<LoginViewModel>();
             services.AddTransient<RegisterViewModel>();
+            // Admin
+            services.AddTransient<AdminViewModel>();
+            // Agronomy
             services.AddTransient<AgronomyViewModel>();
             services.AddTransient<SoilViewModel>();
             services.AddTransient<SoilTextureViewModel>();
@@ -70,8 +74,11 @@ namespace BeerZdec
             services.AddTransient<HarvestEventViewModel>();
             services.AddTransient<GrainBatchViewModel>();
             services.AddTransient<StorageMoveViewModel>();
+            // Malting
             services.AddTransient<MaltingViewModel>();
+            services.AddTransient<MaltingLinesViewModel>();
 
+            // MainWindow
             services.AddTransient<MainWindowViewModel>();
             services.AddSingleton<MainWindow>(sp =>
             {
