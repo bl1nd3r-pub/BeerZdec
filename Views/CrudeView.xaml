@@ -11,7 +11,7 @@
         <TabItem Header="Поставщики" Padding="10,5">
             <ContentControl Content="{Binding SuppliersContext}" />
         </TabItem>
-        <!--
+
         <TabItem Header="Типы сырья" Padding="10,5">
             <ContentControl Content="{Binding SuppliableCrudeContext}" />
         </TabItem>
@@ -19,6 +19,7 @@
         <TabItem Header="Поставки" Padding="10,5">
             <ContentControl Content="{Binding CrudeSuppliesContext}" />
         </TabItem>
+        <!--
 
         <TabItem Header="Сырьё на складе" Padding="10,5">
             <ContentControl Content="{Binding CrudeOnStockContext}" />

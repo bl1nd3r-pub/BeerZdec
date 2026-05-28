@@ -19,7 +19,8 @@ namespace BeerZdec.Views
             if (DataContext is CrudeViewModel vm)
             {
                 vm.SuppliersContext.LoadCommand.Execute(null);
-                // vm.SuppliableCrudeContext.LoadCommand.Execute(null);
+                vm.SuppliableCrudeContext.LoadCommand.Execute(null);
+                vm.CrudeSuppliesContext.LoadCommand.Execute(null);
 
                 _isInitialized = true;
             }

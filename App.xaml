@@ -99,6 +99,12 @@
         <DataTemplate DataType="{x:Type vm:SuppliersViewModel}">
             <v:SuppliersView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SuppliableCrudeViewModel}">
+            <v:SuppliableCrudeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CrudeSuppliesViewModel}">
+            <v:CrudeSuppliesView />
+        </DataTemplate>
 
     </Application.Resources>
 </Application>
