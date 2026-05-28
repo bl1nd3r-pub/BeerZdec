@@ -78,6 +78,7 @@ namespace BeerZdec
             services.AddTransient<SuppliableCrudeViewModel>();
             services.AddTransient<CrudeSuppliesViewModel>();
             services.AddTransient<CrudeStockViewModel>();
+            services.AddTransient<WareCellsViewModel>();
 
             // MainWindow
             services.AddTransient<MainWindowViewModel>();

@@ -22,6 +22,7 @@ namespace BeerZdec.Views
                 vm.SuppliableCrudeContext.LoadCommand.Execute(null);
                 vm.CrudeSuppliesContext.LoadCommand.Execute(null);
                 vm.CrudeStockContext.LoadCommand.Execute(null);
+                vm.WareCellsContext.LoadCommand.Execute(null);
 
                 _isInitialized = true;
             }

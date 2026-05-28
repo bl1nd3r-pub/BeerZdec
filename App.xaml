@@ -108,6 +108,9 @@
         <DataTemplate DataType="{x:Type vm:CrudeStockViewModel}">
             <v:CrudeStockView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:WareCellsViewModel}">
+            <v:WareCellsView />
+        </DataTemplate>
 
     </Application.Resources>
 </Application>

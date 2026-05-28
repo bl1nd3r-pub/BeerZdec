@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="BeerZdec.Views.WareCellsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BeerZdec.Views"
+             mc:Ignorable="d">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Таблица ячеек -->
+        <GroupBox Grid.Column="0" Header="Ячейки склада сырья" Margin="0,0,10,0">
+            <DataGrid ItemsSource="{Binding WareCells}" 
+                      SelectedItem="{Binding SelectedCell}"
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding WareCell_ID}" Width="50"/>
+                    <DataGridTextColumn Header="Сырьё (ID)" Binding="{Binding WareCell_Crude}" Width="100"/>
+                    <DataGridTextColumn Header="Макс. вместимость" Binding="{Binding WareCell_MaxCapacity}" Width="120"/>
+                    <DataGridTextColumn Header="Заполнено" Binding="{Binding WareCell_CurOccup}" Width="100"/>
+                    <DataGridTextColumn Header="Условия" Binding="{Binding WareCell_Condition}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <!-- Форма редактирования -->
+        <GroupBox Grid.Column="1" Header="Редактирование" Margin="10,0,0,0">
+            <StackPanel Margin="10">
+                <TextBlock Text="Привязанное сырьё (необязательно):" Margin="0,0,0,5"/>
+                <ComboBox ItemsSource="{Binding Crudes}" 
+                         SelectedItem="{Binding SelectedCrude}"
+                         DisplayMemberPath="Crude_ID"
+                         Margin="0,0,0,15" Padding="5"/>
+
+                <TextBlock Text="Макс. вместимость:" Margin="0,0,0,5"/>
+                <TextBox Text="{Binding EditMaxCapacity, UpdateSourceTrigger=PropertyChanged}" 
+                         Margin="0,0,0,10" Padding="5"/>
+
+                <TextBlock Text="Текущая заполненность:" Margin="0,0,0,5"/>
+                <TextBox Text="{Binding EditCurOccup, UpdateSourceTrigger=PropertyChanged}" 
+                         Margin="0,0,0,10" Padding="5"/>
+
+                <TextBlock Text="Условия хранения:" Margin="0,0,0,5"/>
+                <TextBox Text="{Binding EditCondition, UpdateSourceTrigger=PropertyChanged}" 
+                         Margin="0,0,0,20" Padding="5"/>
+
+                <Button Content="Добавить" Command="{Binding AddCommand}" Padding="10,5" Margin="0,0,0,10" Background="#2196F3" Foreground="White"/>
+                <Button Content="Сохранить" Command="{Binding SaveCommand}" Padding="10,5" Margin="0,0,0,10" Background="#4CAF50" Foreground="White"/>
+                <Button Content="Удалить" Command="{Binding DeleteCommand}" Padding="10,5" Margin="0,0,0,10" Background="#f44336" Foreground="White"/>
+                <Button Content="Отмена" Command="{Binding CancelCommand}" Padding="10,5" Background="#9E9E9E" Foreground="White"/>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</UserControl>
