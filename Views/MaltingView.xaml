@@ -25,11 +25,11 @@
         <TabItem Header="Заказы на солодоращение" Padding="10,5">
             <ContentControl Content="{Binding MaltingOrdersContext}" />
         </TabItem>
-        <!-- 
 
         <TabItem Header="Отгрузка зерна" Padding="10,5">
             <ContentControl Content="{Binding StorageToMaltingContext}" />
         </TabItem>
+        <!-- 
 
         <TabItem Header="Процессы солодоращения" Padding="10,5">
             <ContentControl Content="{Binding MaltProcessesContext}" />

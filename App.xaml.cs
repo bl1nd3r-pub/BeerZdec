@@ -69,6 +69,7 @@ namespace BeerZdec
             services.AddTransient<MaltEquipTypesViewModel>();
             services.AddTransient<MaltEquipmentViewModel>();
             services.AddTransient<MaltingOrdersViewModel>();
+            services.AddTransient<StorageToMaltingViewModel>();
 
             // MainWindow
             services.AddTransient<MainWindowViewModel>();
