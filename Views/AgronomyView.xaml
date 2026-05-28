@@ -32,5 +32,9 @@
             <ContentControl Content="{Binding SowingProcessContext}" />
         </TabItem>
 
+        <TabItem Header="Ячейки элеватора" Padding="10,5">
+            <ContentControl Content="{Binding StorageCellContext}" />
+        </TabItem>
+
     </TabControl>
 </UserControl>

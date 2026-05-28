@@ -18,13 +18,13 @@ namespace BeerZdec.Views
 
             if (DataContext is AgronomyViewModel vm)
             {
-                // Загружаем данные для первой вкладки (по умолчанию активной)
                 vm.TextureContext.LoadCommand.Execute(null);
                 vm.SoilContext.LoadCommand.Execute(null);
                 vm.VarietyContext.LoadCommand.Execute(null);
                 vm.GrainContext.LoadCommand.Execute(null);
                 vm.SowingPlotContext.LoadCommand.Execute(null);
                 vm.SowingProcessContext.LoadCommand.Execute(null);
+                vm.StorageCellContext.LoadCommand.Execute(null);
                 _isInitialized = true;
             }
         }

@@ -179,7 +179,7 @@ namespace BeerZdec.Repositories
             // Создаём выражение: e => e.fkProperty == keyValue
             var parameter = Expression.Parameter(entityType, "e");
             var property = Expression.Property(parameter, fkPropertyName);
-            var constant = Expression.Constant(keyValue);
+            var constant = Expression.Constant(keyValue, property.Type);
             var equality = Expression.Equal(property, constant);
             var lambda = Expression.Lambda(equality, parameter);
 
