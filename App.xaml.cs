@@ -70,6 +70,7 @@ namespace BeerZdec
             services.AddTransient<HarvestEventViewModel>();
             services.AddTransient<GrainBatchViewModel>();
             services.AddTransient<StorageMoveViewModel>();
+            services.AddTransient<MaltingViewModel>();
 
             services.AddTransient<MainWindowViewModel>();
             services.AddSingleton<MainWindow>(sp =>

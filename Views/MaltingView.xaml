@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="BeerZdec.Views.MaltingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BeerZdec.Views"
+             Loaded="UserControl_Loaded"
+             mc:Ignorable="d">
+    <TabControl TabStripPlacement="Left" Margin="0,0,0,10" SelectedIndex="0">
+
+        <!-- Вкладки будут добавляться по мере создания ViewModel -->
+        <!-- 
+        <TabItem Header="Линии солодовни" Padding="10,5">
+            <ContentControl Content="{Binding MaltingLinesContext}" />
+        </TabItem>
+
+        <TabItem Header="Типы оборудования" Padding="10,5">
+            <ContentControl Content="{Binding MaltEquipTypesContext}" />
+        </TabItem>
+
+        <TabItem Header="Оборудование" Padding="10,5">
+            <ContentControl Content="{Binding MaltEquipmentContext}" />
+        </TabItem>
+
+        <TabItem Header="Заказы на солодоращение" Padding="10,5">
+            <ContentControl Content="{Binding MaltingOrdersContext}" />
+        </TabItem>
+
+        <TabItem Header="Отгрузка зерна" Padding="10,5">
+            <ContentControl Content="{Binding StorageToMaltingContext}" />
+        </TabItem>
+
+        <TabItem Header="Процессы солодоращения" Padding="10,5">
+            <ContentControl Content="{Binding MaltProcessesContext}" />
+        </TabItem>
+
+        <TabItem Header="Партии солода" Padding="10,5">
+            <ContentControl Content="{Binding MaltBatchesContext}" />
+        </TabItem>
+        -->
+
+        <!-- Временная заглушка -->
+        <TabItem Header="Информация" Padding="10,5">
+            <Grid Margin="10">
+                <TextBlock Text="Модуль 'Солодовня' в разработке..." 
+                          FontSize="16" 
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center"/>
+            </Grid>
+        </TabItem>
+
+    </TabControl>
+</UserControl>

@@ -63,5 +63,11 @@
         <DataTemplate DataType="{x:Type vm:StorageMoveViewModel}">
             <v:StorageMoveView />
         </DataTemplate>
+
+        <!-- Солодовня -->
+        <DataTemplate DataType="{x:Type vm:MaltingViewModel}">
+            <v:MaltingView />
+        </DataTemplate>
+        
     </Application.Resources>
 </Application>

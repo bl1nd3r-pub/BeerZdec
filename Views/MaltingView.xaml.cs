@@ -1,0 +1,31 @@
+﻿using System.Windows.Controls;
+using BeerZdec.ViewModels;
+
+namespace BeerZdec.Views
+{
+    public partial class MaltingView : UserControl
+    {
+        private bool _isInitialized = false;
+
+        public MaltingView()
+        {
+            InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (_isInitialized) return;
+
+            if (DataContext is MaltingViewModel vm)
+            {
+                // Здесь будут вызовы LoadCommand для каждой вкладки
+                // vm.MaltingLinesContext.LoadCommand.Execute(null);
+                // vm.MaltEquipTypesContext.LoadCommand.Execute(null);
+                // и т.д.
+
+                //vm.Initialize();
+                _isInitialized = true;
+            }
+        }
+    }
+}
