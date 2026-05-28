@@ -33,14 +33,12 @@
         <TabItem Header="Процессы солодоращения" Padding="10,5">
             <ContentControl Content="{Binding MaltProcessesContext}" />
         </TabItem>
-        <!-- 
 
         <TabItem Header="Партии солода" Padding="10,5">
             <ContentControl Content="{Binding MaltBatchesContext}" />
         </TabItem>
-        -->
 
-        
+
 
     </TabControl>
 </UserControl>

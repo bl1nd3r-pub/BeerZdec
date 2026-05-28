@@ -88,6 +88,9 @@
         <DataTemplate DataType="{x:Type vm:MaltProcessesViewModel}">
             <v:MaltProcessesView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MaltBatchesViewModel}">
+            <v:MaltBatchesView />
+        </DataTemplate>
 
     </Application.Resources>
 </Application>

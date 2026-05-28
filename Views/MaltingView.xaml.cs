@@ -24,6 +24,7 @@ namespace BeerZdec.Views
                 vm.MaltingOrdersContext.LoadCommand.Execute(null);
                 vm.StorageToMaltingContext.LoadCommand.Execute(null);
                 vm.MaltProcessesContext.LoadCommand.Execute(null);
+                vm.MaltBatchesContext.LoadCommand.Execute(null);
 
                 _isInitialized = true;
             }
