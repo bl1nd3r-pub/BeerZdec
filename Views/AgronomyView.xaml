@@ -36,5 +36,9 @@
             <ContentControl Content="{Binding StorageCellContext}" />
         </TabItem>
 
+        <TabItem Header="Уборка урожая" Padding="10,5">
+            <ContentControl Content="{Binding HarvestEventContext}" />
+        </TabItem>
+
     </TabControl>
 </UserControl>

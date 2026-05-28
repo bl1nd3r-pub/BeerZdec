@@ -17,6 +17,7 @@ namespace BeerZdec.ViewModels
         private readonly SowingPlotViewModel _sowingPlotViewModel;
         private readonly SowingProcessViewModel _sowingProcessViewModel;
         private readonly StorageCellViewModel _storageCellViewModel;
+        private readonly HarvestEventViewModel _harvestEventViewModel;
 
         // Внедряем дочерний ViewModel через DI
         public AgronomyViewModel(
@@ -26,7 +27,8 @@ namespace BeerZdec.ViewModels
             GrainViewModel grainViewModel,
             SowingPlotViewModel sowingPlotViewModel,
             SowingProcessViewModel sowingProcessViewModel,
-            StorageCellViewModel storageCellViewModel
+            StorageCellViewModel storageCellViewModel,
+            HarvestEventViewModel harvestEventViewModel
             )
         {
             _soilViewModel = soilViewModel ?? throw new ArgumentNullException(nameof(soilViewModel));
@@ -36,6 +38,8 @@ namespace BeerZdec.ViewModels
             _sowingPlotViewModel = sowingPlotViewModel ?? throw new ArgumentNullException(nameof(sowingPlotViewModel));
             _sowingProcessViewModel = sowingProcessViewModel ?? throw new ArgumentNullException(nameof(sowingProcessViewModel));
             _storageCellViewModel = storageCellViewModel ?? throw new ArgumentNullException(nameof(storageCellViewModel));
+            _harvestEventViewModel = harvestEventViewModel ?? throw new ArgumentNullException(nameof(harvestEventViewModel));
+            
 
         }
 
@@ -47,6 +51,7 @@ namespace BeerZdec.ViewModels
         public SowingPlotViewModel SowingPlotContext => _sowingPlotViewModel;
         public SowingProcessViewModel SowingProcessContext => _sowingProcessViewModel;
         public StorageCellViewModel StorageCellContext => _storageCellViewModel;
+        public HarvestEventViewModel HarvestEventContext => _harvestEventViewModel;
 
         public void Initialize()
         {
@@ -57,6 +62,7 @@ namespace BeerZdec.ViewModels
             _sowingPlotViewModel.LoadCommand.Execute(null);
             _sowingProcessViewModel.LoadCommand.Execute(null);
             _storageCellViewModel.LoadCommand.Execute(null);
+            _harvestEventViewModel.LoadCommand.Execute(null);
         }
     }
 }

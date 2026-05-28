@@ -50,5 +50,8 @@
         <DataTemplate DataType="{x:Type vm:StorageCellViewModel}">
             <v:StorageCellView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:HarvestEventViewModel}">
+            <v:HarvestEventView />
+        </DataTemplate>
     </Application.Resources>
 </Application>
