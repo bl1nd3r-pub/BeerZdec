@@ -71,6 +71,9 @@
         <DataTemplate DataType="{x:Type vm:MaltingLinesViewModel}">
             <v:MaltingLinesView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MaltEquipTypesViewModel}">
+            <v:MaltEquipTypesView />
+        </DataTemplate>
 
     </Application.Resources>
 </Application>

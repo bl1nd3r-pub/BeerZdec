@@ -9,9 +9,8 @@ namespace BeerZdec.ViewModels
 {
     public class MaltingViewModel : ObservableObject
     {
-        // Пока заглушки для будущих ViewModel
         private readonly MaltingLinesViewModel _maltingLinesViewModel;
-        //private readonly MaltEquipTypesViewModel _maltEquipTypesViewModel;
+        private readonly MaltEquipTypesViewModel _maltEquipTypesViewModel;
         //private readonly MaltEquipmentViewModel _maltEquipmentViewModel;
         //private readonly MaltingOrdersViewModel _maltingOrdersViewModel;
         //private readonly StorageToMaltingViewModel _storageToMaltingViewModel;
@@ -20,8 +19,8 @@ namespace BeerZdec.ViewModels
 
         // Внедряем дочерние ViewModel через DI
         public MaltingViewModel(
-            MaltingLinesViewModel maltingLinesViewModel
-            //MaltEquipTypesViewModel maltEquipTypesViewModel,
+            MaltingLinesViewModel maltingLinesViewModel,
+            MaltEquipTypesViewModel maltEquipTypesViewModel
             //MaltEquipmentViewModel maltEquipmentViewModel,
             //MaltingOrdersViewModel maltingOrdersViewModel,
             //StorageToMaltingViewModel storageToMaltingViewModel,
@@ -30,7 +29,7 @@ namespace BeerZdec.ViewModels
             )
         {
             _maltingLinesViewModel = maltingLinesViewModel ?? throw new ArgumentNullException(nameof(maltingLinesViewModel));
-            // _maltEquipTypesViewModel = maltEquipTypesViewModel ?? throw new ArgumentNullException(nameof(maltEquipTypesViewModel));
+            _maltEquipTypesViewModel = maltEquipTypesViewModel ?? throw new ArgumentNullException(nameof(maltEquipTypesViewModel));
             // _maltEquipmentViewModel = maltEquipmentViewModel ?? throw new ArgumentNullException(nameof(maltEquipmentViewModel));
             // _maltingOrdersViewModel = maltingOrdersViewModel ?? throw new ArgumentNullException(nameof(maltingOrdersViewModel));
             // _storageToMaltingViewModel = storageToMaltingViewModel ?? throw new ArgumentNullException(nameof(storageToMaltingViewModel));
@@ -40,7 +39,7 @@ namespace BeerZdec.ViewModels
 
         // Свойства, которые будут биндиться во View
         public MaltingLinesViewModel MaltingLinesContext => _maltingLinesViewModel;
-        // public MaltEquipTypesViewModel MaltEquipTypesContext => _maltEquipTypesViewModel;
+        public MaltEquipTypesViewModel MaltEquipTypesContext => _maltEquipTypesViewModel;
         // public MaltEquipmentViewModel MaltEquipmentContext => _maltEquipmentViewModel;
         // public MaltingOrdersViewModel MaltingOrdersContext => _maltingOrdersViewModel;
         // public StorageToMaltingViewModel StorageToMaltingContext => _storageToMaltingViewModel;
@@ -50,7 +49,7 @@ namespace BeerZdec.ViewModels
         public void Initialize()
         {
             _maltingLinesViewModel.LoadCommand.Execute(null);
-            // _maltEquipTypesViewModel.LoadCommand.Execute(null);
+            _maltEquipTypesViewModel.LoadCommand.Execute(null);
             // _maltEquipmentViewModel.LoadCommand.Execute(null);
             // _maltingOrdersViewModel.LoadCommand.Execute(null);
             // _storageToMaltingViewModel.LoadCommand.Execute(null);

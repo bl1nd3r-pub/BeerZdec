@@ -13,10 +13,11 @@
         <TabItem Header="Линии солодовни" Padding="10,5">
             <ContentControl Content="{Binding MaltingLinesContext}" />
         </TabItem>
-        <!-- 
+
         <TabItem Header="Типы оборудования" Padding="10,5">
             <ContentControl Content="{Binding MaltEquipTypesContext}" />
         </TabItem>
+        <!-- 
 
         <TabItem Header="Оборудование" Padding="10,5">
             <ContentControl Content="{Binding MaltEquipmentContext}" />

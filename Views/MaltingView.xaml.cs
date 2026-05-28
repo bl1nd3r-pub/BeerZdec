@@ -19,6 +19,7 @@ namespace BeerZdec.Views
             if (DataContext is MaltingViewModel vm)
             {
                 vm.MaltingLinesContext.LoadCommand.Execute(null);
+                vm.MaltEquipTypesContext.LoadCommand.Execute(null);
 
                 _isInitialized = true;
             }
