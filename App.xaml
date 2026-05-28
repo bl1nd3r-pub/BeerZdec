@@ -9,8 +9,9 @@
         <!-- Конвертеры -->
         <conv:BoolToVisibilityConverter x:Key="BoolToVis"/>
         <conv:InvertedBoolToVisibilityConverter x:Key="InvertedBoolToVis"/>
-        
-        <!-- Карта навигации -->
+
+        <!-- ======= Карта навигации ======= -->
+        <!-- База -->
         <DataTemplate DataType="{x:Type vm:WelcomeViewModel}">
             <v:WelcomeView />
         </DataTemplate>
@@ -23,9 +24,12 @@
         <DataTemplate DataType="{x:Type vm:AboutViewModel}">
             <v:AboutView />
         </DataTemplate>
+        <!-- Админка -->
         <DataTemplate DataType="{x:Type vm:AdminViewModel}">
             <v:AdminView />
         </DataTemplate>
+        
+        <!-- Агрономия -->
         <DataTemplate DataType="{x:Type vm:AgronomyViewModel}">
             <v:AgronomyView />
         </DataTemplate>
@@ -52,6 +56,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:HarvestEventViewModel}">
             <v:HarvestEventView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:GrainBatchViewModel}">
+            <v:GrainBatchView />
         </DataTemplate>
     </Application.Resources>
 </Application>

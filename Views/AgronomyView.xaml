@@ -40,5 +40,9 @@
             <ContentControl Content="{Binding HarvestEventContext}" />
         </TabItem>
 
+        <TabItem Header="Партии зерна" Padding="10,5">
+            <ContentControl Content="{Binding GrainBatchContext}" />
+        </TabItem>
+
     </TabControl>
 </UserControl>

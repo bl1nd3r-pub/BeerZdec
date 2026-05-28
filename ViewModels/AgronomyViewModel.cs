@@ -18,6 +18,7 @@ namespace BeerZdec.ViewModels
         private readonly SowingProcessViewModel _sowingProcessViewModel;
         private readonly StorageCellViewModel _storageCellViewModel;
         private readonly HarvestEventViewModel _harvestEventViewModel;
+        private readonly GrainBatchViewModel _grainBatchViewModel;
 
         // Внедряем дочерний ViewModel через DI
         public AgronomyViewModel(
@@ -28,7 +29,8 @@ namespace BeerZdec.ViewModels
             SowingPlotViewModel sowingPlotViewModel,
             SowingProcessViewModel sowingProcessViewModel,
             StorageCellViewModel storageCellViewModel,
-            HarvestEventViewModel harvestEventViewModel
+            HarvestEventViewModel harvestEventViewModel,
+            GrainBatchViewModel grainBatchViewModel
             )
         {
             _soilViewModel = soilViewModel ?? throw new ArgumentNullException(nameof(soilViewModel));
@@ -39,11 +41,11 @@ namespace BeerZdec.ViewModels
             _sowingProcessViewModel = sowingProcessViewModel ?? throw new ArgumentNullException(nameof(sowingProcessViewModel));
             _storageCellViewModel = storageCellViewModel ?? throw new ArgumentNullException(nameof(storageCellViewModel));
             _harvestEventViewModel = harvestEventViewModel ?? throw new ArgumentNullException(nameof(harvestEventViewModel));
-            
+            _grainBatchViewModel = grainBatchViewModel ?? throw new ArgumentNullException(nameof(grainBatchViewModel));
 
         }
 
-        // Свойство, которое мы будем передавать во View
+        // Свойства, которые мы будем передавать во View
         public SoilViewModel SoilContext => _soilViewModel;
         public SoilTextureViewModel TextureContext => _textureViewModel;
         public VarietyViewModel VarietyContext => _varietyViewModel;
@@ -52,6 +54,7 @@ namespace BeerZdec.ViewModels
         public SowingProcessViewModel SowingProcessContext => _sowingProcessViewModel;
         public StorageCellViewModel StorageCellContext => _storageCellViewModel;
         public HarvestEventViewModel HarvestEventContext => _harvestEventViewModel;
+        public GrainBatchViewModel GrainBatchContext => _grainBatchViewModel;
 
         public void Initialize()
         {
@@ -63,6 +66,7 @@ namespace BeerZdec.ViewModels
             _sowingProcessViewModel.LoadCommand.Execute(null);
             _storageCellViewModel.LoadCommand.Execute(null);
             _harvestEventViewModel.LoadCommand.Execute(null);
+            _grainBatchViewModel.LoadCommand.Execute(null);
         }
     }
 }
