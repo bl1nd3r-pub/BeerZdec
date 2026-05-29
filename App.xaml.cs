@@ -24,7 +24,10 @@ namespace BeerZdec
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
-            var connectionString = configuration.GetConnectionString("HomeConnection");
+            var useDocker = e.Args.Any(arg => arg.ToLower() == "--docker");
+            var connectionString = useDocker
+                ? configuration.GetConnectionString("DockerConnection")
+                : configuration.GetConnectionString("HomeConnection");
 
             var services = new ServiceCollection();
 
